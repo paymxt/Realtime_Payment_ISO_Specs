@@ -1,0 +1,1921 @@
+---
+$schema: "http://json-schema.org/draft-04/schema#"
+description: This is the ISO/TS 23029:2019 json schema for the message definition pain.001.001.09-CustomerCreditTransferInitiationV09...
+additionalProperties: false
+definitions:
+  GroupHeader85:
+    additionalProperties: false
+    properties:
+      message_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      creation_date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+      number_of_transactions:
+        $ref: "#/definitions/Max15NumericText"
+        type: string
+      control_sum:
+        $ref: "#/definitions/DecimalNumber"
+        type: string
+      initiating_party:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      forwarding_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+    required:
+      - message_identification
+      - creation_date_time
+      - number_of_transactions
+      - initiating_party
+    type: object
+  Max35Text:
+    description: Specifies a character string with a maximum length of 35 characters.
+    minLength: 1
+    maxLength: 35
+    type: string
+  ISODateTime:
+    type: string
+  Max128Text:
+    description: Specifies a character string with a maximum length of 128 characters.
+    minLength: 1
+    maxLength: 128
+    type: string
+  Max15NumericText:
+    description: Specifies a numeric string with a maximum length of 15 digits.
+    pattern: "^[0-9]{1,15}$"
+    type: string
+  DecimalNumber:
+    maxLength: 18
+    type: string
+  PartyIdentification135:
+    additionalProperties: false
+    properties:
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      postal_address:
+        $ref: "#/definitions/PostalAddress24"
+        type: object
+        additionalProperties: false
+      identification:
+        $ref: "#/definitions/Party38Choice"
+        type: object
+        additionalProperties: false
+      country_of_residence:
+        $ref: "#/definitions/CountryCode"
+        type: string
+      contact_details:
+        $ref: "#/definitions/Contact4"
+        type: object
+        additionalProperties: false
+    type: object
+  Max140Text:
+    description: Specifies a character string with a maximum length of 140 characters.
+    minLength: 1
+    maxLength: 140
+    type: string
+  PostalAddress24:
+    additionalProperties: false
+    properties:
+      address_type:
+        $ref: "#/definitions/AddressType3Choice"
+        type: object
+        additionalProperties: false
+      department:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      sub_department:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      street_name:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      building_number:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      building_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      floor:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      post_box:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      room:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      post_code:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      town_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      town_location_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      district_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country_sub_division:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country:
+        $ref: "#/definitions/CountryCode"
+        type: string
+      address_line:
+        maxItems: 7
+        items:
+          $ref: "#/definitions/Max70Text"
+        type: array
+    type: object
+  AddressType3Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/AddressType2Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/GenericIdentification30"
+        type: object
+        additionalProperties: false
+    additionalProperties: false
+    type: object
+  AddressType2Code:
+    enum:
+      - HOME
+      - BIZZ
+      - ADDR
+      - PBOX
+      - MLTO
+      - DLVY
+    type: string
+  GenericIdentification30:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Exact4AlphaNumericText"
+        type: string
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+      - issuer
+    type: object
+  Exact4AlphaNumericText:
+    description: Specifies an alphanumeric string with a length of 4 characters.
+    pattern: "^[a-zA-Z0-9]{4}$"
+    type: string
+  Max70Text:
+    description: Specifies a character string with a maximum length of 70characters.
+    minLength: 1
+    maxLength: 70
+    type: string
+  Max16Text:
+    description: Specifies a character string with a maximum length of 16 characters.
+    minLength: 1
+    maxLength: 16
+    type: string
+  CountryCode:
+    pattern: "^[A-Z]{2,2}$"
+    type: string
+  Party38Choice:
+    oneOf:
+      - required:
+          - organisation_identification
+      - required:
+          - private_identification
+    properties:
+      organisation_identification:
+        $ref: "#/definitions/OrganisationIdentification29"
+        type: object
+        additionalProperties: false
+      private_identification:
+        $ref: "#/definitions/PersonIdentification13"
+        type: object
+        additionalProperties: false
+    additionalProperties: false
+    type: object
+  OrganisationIdentification29:
+    additionalProperties: false
+    properties:
+      any_BIC:
+        $ref: "#/definitions/AnyBICDec2014Identifier"
+        type: string
+      LEI:
+        $ref: "#/definitions/LEIIdentifier"
+        type: string
+      other:
+        items:
+          $ref: "#/definitions/GenericOrganisationIdentification1"
+        type: array
+    type: object
+  AnyBICDec2014Identifier:
+    pattern: "^[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}$"
+    type: string
+  LEIIdentifier:
+    pattern: "^[A-Z0-9]{18,18}[0-9]{2,2}$"
+    type: string
+  GenericOrganisationIdentification1:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/OrganisationIdentificationSchemeName1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+    type: object
+  OrganisationIdentificationSchemeName1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalOrganisationIdentification1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalOrganisationIdentification1Code:
+    type: string
+  PersonIdentification13:
+    additionalProperties: false
+    properties:
+      date_and_place_of_birth:
+        $ref: "#/definitions/DateAndPlaceOfBirth1"
+        type: object
+        additionalProperties: false
+      other:
+        items:
+        $ref: "#/definitions/GenericPersonIdentification1"
+        type: array
+    type: object
+  DateAndPlaceOfBirth1:
+    additionalProperties: false
+    properties:
+      birth_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      province_of_birth:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      city_of_birth:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country_of_birth:
+        $ref: "#/definitions/CountryCode"
+        type: string
+    required:
+      - birth_date
+      - city_of_birth
+      - country_of_birth
+    type: object
+  ISODate:
+    type: string
+  GenericPersonIdentification1:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/PersonIdentificationSchemeName1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+    type: object
+  PersonIdentificationSchemeName1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      Code:
+        $ref: "#/definitions/ExternalPersonIdentification1Code"
+        type: string
+      Proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalPersonIdentification1Code:
+    type: string
+  Contact4:
+    additionalProperties: false
+    properties:
+      name_prefix:
+        $ref: "#/definitions/NamePrefix2Code"
+        type: string
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      phone_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      mobile_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      fax_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      email_address:
+        $ref: "#/definitions/Max2048Text"
+        type: string
+      email_purpose:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      job_title:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      responsibility:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      department:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      other:
+        items:
+          $ref: "#/definitions/OtherContact1"
+        type: array
+      preferred_method:
+        $ref: "#/definitions/PreferredContactMethod1Code"
+        type: string
+    type: object
+  NamePrefix2Code:
+    enum:
+      - DOCT
+      - MIST
+      - MISS
+      - MADM
+      - MIKS
+    type: string
+  PhoneNumber:
+    description: |-
+      The collection of information which identifies a specific phone or FAX number as defined by telecom services.
+      It consists of a '+' followed by the country code (from 1 to 3 characters) then a '-' and finally, any combination of numbers, '(', ')', '+' and '-' (up to 30 characters).
+    pattern: '^\\+[0-9]{1,3}-[0-9()+\\-]{1,30}$'
+    type: string
+  Max2048Text:
+    description: Specifies a character string with a maximum length of 2048 characters.
+    minLength: 1
+    maxLength: 2048
+    type: string
+  OtherContact1:
+    additionalProperties: false
+    properties:
+      channel_type:
+        $ref: "#/definitions/Max4Text"
+        type: string
+      identification:
+        $ref: "#/definitions/Max128Text"
+        type: string
+    required:
+      - channel_type
+    type: object
+  Max4Text:
+    description: Specifies a character string with a maximum length of 4 characters.
+    minLength: 1
+    maxLength: 4
+    type: string
+  PreferredContactMethod1Code:
+    enum:
+      - LETT
+      - MAIL
+      - PHON
+      - FAXX
+      - CELL
+    type: string
+  BranchAndFinancialInstitutionIdentification6:
+    additionalProperties: false
+    properties:
+      financial_institution_identification:
+        $ref: "#/definitions/FinancialInstitutionIdentification18"
+        type: object
+        additionalProperties: false
+      branch_identification:
+        $ref: "#/definitions/BranchData3"
+        type: object
+        additionalProperties: false
+    required:
+      - financial_institution_identification
+    type: object
+  FinancialInstitutionIdentification18:
+    additionalProperties: false
+    properties:
+      BICFI:
+        $ref: "#/definitions/BICFIDec2014Identifier"
+        type: string
+      clearing_system_member_identification:
+        $ref: "#/definitions/ClearingSystemMemberIdentification2"
+        type: object
+        additionalProperties: false
+      LEI:
+        $ref: "#/definitions/LEIIdentifier"
+        type: string
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      postal_address:
+        $ref: "#/definitions/PostalAddress24"
+        type: object
+        additionalProperties: false
+      other:
+        $ref: "#/definitions/GenericFinancialIdentification1"
+        type: object
+        additionalProperties: false
+    type: object
+  BICFIDec2014Identifier:
+    pattern: "^[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}$"
+    type: string
+  ClearingSystemMemberIdentification2:
+    additionalProperties: false
+    properties:
+      clearing_system_identification:
+        $ref: "#/definitions/ClearingSystemIdentification2Choice"
+        type: object
+        additionalProperties: false
+      member_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - member_identification
+    type: object
+  ClearingSystemIdentification2Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalClearingSystemIdentification1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalClearingSystemIdentification1Code:
+    type: string
+  GenericFinancialIdentification1:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/FinancialIdentificationSchemeName1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+    type: object
+  FinancialIdentificationSchemeName1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalFinancialInstitutionIdentification1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalFinancialInstitutionIdentification1Code:
+    type: string
+  BranchData3:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      LEI:
+        $ref: "#/definitions/LEIIdentifier"
+        type: string
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      postal_address:
+        $ref: "#/definitions/PostalAddress24"
+        type: object
+        additionalProperties: false
+    type: object
+  PaymentInstruction30:
+    additionalProperties: false
+    properties:
+      payment_information_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      payment_method:
+        $ref: "#/definitions/PaymentMethod3Code"
+        type: string
+      number_of_transactions:
+        $ref: "#/definitions/Max15NumericText"
+        type: string
+      control_sum:
+        $ref: "#/definitions/DecimalNumber"
+        type: string
+      payment_type_information:
+        $ref: "#/definitions/PaymentTypeInformation26"
+        type: object
+        additionalProperties: false
+      requested_execution_date:
+        $ref: "#/definitions/DateAndDateTime2Choice"
+        type: object
+        additionalProperties: false
+      pooling_adjustment_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      debtor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      debtor_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      debtor_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      debtor_agent_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      ultimate_debtor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      charges_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      charges_account_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      credit_transfer_transaction_information:
+        minItems: 1
+        items:
+          $ref: "#/definitions/CreditTransferTransaction34"
+        type: array
+    required:
+      - payment_information_identification
+      - payment_method
+      - requested_execution_date
+      - debtor
+      - debtor_account
+      - debtor_agent
+      - credit_transfer_transaction_information
+    type: object
+  PaymentMethod3Code:
+    enum:
+      - CHK
+      - TRF
+      - TRA
+    type: string
+  PaymentTypeInformation26:
+    additionalProperties: false
+    properties:
+      instruction_priority:
+        $ref: "#/definitions/Priority2Code"
+        type: string
+      service_level:
+        items:
+          $ref: "#/definitions/ServiceLevel8Choice"
+        type: array
+      local_instrument:
+        $ref: "#/definitions/LocalInstrument2Choice"
+        type: object
+        additionalProperties: false
+      category_purpose:
+        $ref: "#/definitions/CategoryPurpose1Choice"
+        type: object
+        additionalProperties: false
+    type: object
+  Priority2Code:
+    enum:
+      - HIGH
+      - NORM
+    type: string
+  ServiceLevel8Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalServiceLevel1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalServiceLevel1Code:
+    type: string
+  LocalInstrument2Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalLocalInstrument1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalLocalInstrument1Code:
+    type: string
+  CategoryPurpose1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalCategoryPurpose1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalCategoryPurpose1Code:
+    type: string
+  DateAndDateTime2Choice:
+    oneOf:
+      - required:
+          - date
+      - required:
+          - date_time
+    properties:
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+    additionalProperties: false
+    type: object
+  CashAccount38:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/AccountIdentification4Choice"
+        type: object
+        additionalProperties: false
+      type:
+        $ref: "#/definitions/CashAccountType2Choice"
+        type: object
+        additionalProperties: false
+      currency:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyCode"
+        type: string
+      name:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      proxy:
+        $ref: "#/definitions/ProxyAccountIdentification1"
+        type: object
+        additionalProperties: false
+    required:
+      - identification
+    type: object
+  AccountIdentification4Choice:
+    oneOf:
+      - required:
+          - IBAN
+      - required:
+          - other
+    properties:
+      IBAN:
+        $ref: "#/definitions/IBAN2007Identifier"
+        type: string
+      other:
+        $ref: "#/definitions/GenericAccountIdentification1"
+        type: object
+        additionalProperties: false
+    additionalProperties: false
+    type: object
+  IBAN2007Identifier:
+    pattern: "^[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}$"
+    type: string
+  GenericAccountIdentification1:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max34Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/AccountSchemeName1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+    type: object
+  Max34Text:
+    description: Specifies a character string with a maximum length of 34 characters.
+    minLength: 1
+    maxLength: 34
+    type: string
+  AccountSchemeName1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalAccountIdentification1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalAccountIdentification1Code:
+    type: string
+  CashAccountType2Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalCashAccountType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalCashAccountType1Code:
+    type: string
+  ActiveOrHistoricCurrencyCode:
+    pattern: "^[A-Z]{3,3}$"
+    type: string
+  ProxyAccountIdentification1:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/ProxyAccountType1Choice"
+        type: object
+        additionalProperties: false
+      identification:
+        $ref: "#/definitions/Max2048Text"
+        type: string
+    required:
+      - identification
+    type: object
+  ProxyAccountType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalProxyAccountType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalProxyAccountType1Code:
+    type: string
+  ChargeBearerType1Code:
+    enum:
+      - DEBT
+      - CRED
+      - SHAR
+      - SLEV
+    type: string
+  CreditTransferTransaction34:
+    additionalProperties: false
+    properties:
+      payment_identification:
+        $ref: "#/definitions/PaymentIdentification6"
+        type: object
+        additionalProperties: false
+      payment_type_information:
+        $ref: "#/definitions/PaymentTypeInformation26"
+        type: object
+        additionalProperties: false
+      amount:
+        $ref: "#/definitions/AmountType4Choice"
+        type: object
+        additionalProperties: false
+      exchange_rate_information:
+        $ref: "#/definitions/ExchangeRate1"
+        type: object
+        additionalProperties: false
+      charge_bearer:
+        $ref: "#/definitions/ChargeBearerType1Code"
+        type: string
+      cheque_instruction:
+        $ref: "#/definitions/Cheque11"
+        type: object
+        additionalProperties: false
+      ultimate_debtor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      intermediary_agent1:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      intermediary_agent1_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      intermediary_agent2:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      intermediary_agent2_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      IntermediaryAgent3:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      intermediary_agent3_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      creditor_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      creditor_agent_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      creditor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      creditor_account:
+        $ref: "#/definitions/CashAccount38"
+        type: object
+        additionalProperties: false
+      ultimate_creditor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      instruction_for_creditor_agent:
+        items:
+          $ref: "#/definitions/InstructionForCreditorAgent1"
+        type: array
+      purpose:
+        $ref: "#/definitions/Purpose2Choice"
+        type: object
+        additionalProperties: false
+      regulatory_reporting:
+        maxItems: 10
+        items:
+          $ref: "#/definitions/RegulatoryReporting3"
+        type: array
+      tax:
+        $ref: "#/definitions/TaxInformation8"
+        type: object
+        additionalProperties: false
+      related_remittance_information:
+        maxItems: 10
+        items:
+          $ref: "#/definitions/RemittanceLocation7"
+        type: array
+      remittance_information:
+        $ref: "#/definitions/RemittanceInformation16"
+        type: object
+        additionalProperties: false
+      supplementary_data:
+        items:
+          $ref: "#/definitions/SupplementaryData1"
+        type: array
+    required:
+      - payment_identification
+      - amount
+      - creditor
+      - supplementary_data
+    type: object
+  PaymentIdentification6:
+    additionalProperties: false
+    properties:
+      instruction_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      end_to_end_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      UETR:
+        $ref: "#/definitions/UUIDv4Identifier"
+        type: string
+    required:
+      - end_to_end_identification
+    type: object
+  UUIDv4Identifier:
+    pattern: "^[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}$"
+    type: string
+  AmountType4Choice:
+    oneOf:
+      - required:
+          - instructed_amount
+      - required:
+          - equivalent_amount
+    properties:
+      instructed_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      equivalent_amount:
+        $ref: "#/definitions/EquivalentAmount2"
+        type: object
+        additionalProperties: false
+    additionalProperties: false
+    type: object
+  ActiveOrHistoricCurrencyAndAmount:
+    type: object
+    properties:
+      amount:
+        $ref: "#/definitions/CurrencyAmountType"
+      active_or_historic_currency_code:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyCode"
+  CurrencyAmountType:
+    type: number
+    #format: decimal  # fractionDigits=5, totalDigits=18, minInclusive=0 - the same as Interac
+    x-precision: 2
+  # The same as DecimalNumber definition
+  # The orginal definition '#definitions/Number'
+  EquivalentAmount2:
+    additionalProperties: false
+    properties:
+      amount:
+        $ref: "#/definitions/CurrencyAmountType"
+      currency_of_transfer:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyCode"
+        type: string
+    required:
+      - amount
+      - currency_of_transfer
+    type: object
+  ExchangeRate1:
+    additionalProperties: false
+    properties:
+      unit_currency:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyCode"
+        type: string
+      exchange_rate:
+        $ref: "#/definitions/BaseOneRate"
+        type: string
+      rate_type:
+        $ref: "#/definitions/ExchangeRateType1Code"
+        type: string
+      contract_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    type: object
+  BaseOneRate:
+    maxLength: 11
+    type: string
+  ExchangeRateType1Code:
+    enum:
+      - SPOT
+      - SALE
+      - AGRD
+    type: string
+  Cheque11:
+    additionalProperties: false
+    properties:
+      cheque_type:
+        $ref: "#/definitions/ChequeType2Code"
+        type: string
+      cheque_number:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      cheque_from:
+        $ref: "#/definitions/NameAndAddress16"
+        type: object
+        additionalProperties: false
+      delivery_method:
+        $ref: "#/definitions/ChequeDeliveryMethod1Choice"
+        type: object
+        additionalProperties: false
+      deliver_to:
+        $ref: "#/definitions/NameAndAddress16"
+        type: object
+        additionalProperties: false
+      instruction_priority:
+        $ref: "#/definitions/Priority2Code"
+        type: string
+      cheque_maturity_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      forms_code:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      memo_field:
+        maxItems: 2
+        items:
+          $ref: "#/definitions/Max35Text"
+        type: array
+      regional_clearing_zone:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      print_location:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      signature:
+        maxItems: 5
+        items:
+          $ref: "#/definitions/Max70Text"
+        type: array
+    type: object
+  ChequeType2Code:
+    enum:
+      - CCHQ
+      - CCCH
+      - BCHQ
+      - DRFT
+      - ELDR
+    type: string
+  NameAndAddress16:
+    additionalProperties: false
+    properties:
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      address:
+        $ref: "#/definitions/PostalAddress24"
+        type: object
+        additionalProperties: false
+    required:
+      - name
+      - address
+    type: object
+  ChequeDeliveryMethod1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ChequeDelivery1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ChequeDelivery1Code:
+    enum:
+      - MLDB
+      - MLCD
+      - MLFA
+      - CRDB
+      - CRCD
+      - CRFA
+      - PUDB
+      - PUCD
+      - PUFA
+      - RGDB
+      - RGCD
+      - RGFA
+    type: string
+  InstructionForCreditorAgent1:
+    additionalProperties: false
+    properties:
+      code:
+        $ref: "#/definitions/Instruction3Code"
+        type: string
+      instruction_information:
+        $ref: "#/definitions/Max140Text"
+        type: string
+    type: object
+  Instruction3Code:
+    enum:
+      - CHQB
+      - HOLD
+      - PHOB
+      - TELB
+    type: string
+  Purpose2Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalPurpose1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalPurpose1Code:
+    type: string
+  RegulatoryReporting3:
+    additionalProperties: false
+    properties:
+      debit_credit_reporting_indicator:
+        $ref: "#/definitions/RegulatoryReportingType1Code"
+        type: string
+      authority:
+        $ref: "#/definitions/RegulatoryAuthority2"
+        type: object
+        additionalProperties: false
+      details:
+        items:
+          $ref: "#/definitions/StructuredRegulatoryReporting3"
+        type: array
+    type: object
+  RegulatoryReportingType1Code:
+    enum:
+      - CRED
+      - DEBT
+      - BOTH
+    type: string
+  RegulatoryAuthority2:
+    additionalProperties: false
+    properties:
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      country:
+        $ref: "#/definitions/CountryCode"
+        type: string
+    type: object
+  StructuredRegulatoryReporting3:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      country:
+        $ref: "#/definitions/CountryCode"
+        type: string
+      Code:
+        $ref: "#/definitions/Max10Text"
+        type: string
+      amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      information:
+        items:
+          $ref: "#/definitions/Max35Text"
+        type: array
+    type: object
+  Max10Text:
+    description: Specifies a character string with a maximum length of 10 characters.
+    minLength: 1
+    maxLength: 10
+    type: string
+  TaxInformation8:
+    additionalProperties: false
+    properties:
+      debtor:
+        $ref: "#/definitions/TaxParty2"
+        type: object
+        additionalProperties: false
+      total_tax_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      record:
+        items:
+          $ref: "#/definitions/TaxRecord2"
+        type: array
+    type: object
+  TaxParty1:
+    additionalProperties: false
+    properties:
+      tax_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      registration_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      tax_type:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    type: object
+  TaxParty2:
+    additionalProperties: false
+    properties:
+      tax_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      registration_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      tax_type:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      authorisation:
+        $ref: "#/definitions/TaxAuthorisation1"
+        type: object
+        additionalProperties: false
+    type: object
+  TaxAuthorisation1:
+    additionalProperties: false
+    properties:
+      title:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+    type: object
+  Number:
+    maxLength: 18
+    type: string
+  TaxRecord2:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      category:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      category_details:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      period:
+        $ref: "#/definitions/TaxPeriod2"
+        type: object
+        additionalProperties: false
+      tax_amount:
+        $ref: "#/definitions/TaxAmount2"
+        type: object
+        additionalProperties: false
+    type: object
+  TaxPeriod2:
+    additionalProperties: false
+    properties:
+      year:
+        $ref: "#/definitions/ISODate"
+        type: string
+      type:
+        $ref: "#/definitions/TaxRecordPeriod1Code"
+        type: string
+      from_to_date:
+        $ref: "#/definitions/DatePeriod2"
+        type: object
+        additionalProperties: false
+    type: object
+  TaxRecordPeriod1Code:
+    enum:
+      - MM01
+      - MM02
+      - MM03
+      - MM04
+      - MM05
+      - MM06
+      - MM07
+      - MM08
+      - MM09
+      - MM10
+      - MM11
+      - MM12
+      - QTR1
+      - QTR2
+      - QTR3
+      - QTR4
+      - HLF1
+      - HLF2
+    type: string
+  DatePeriod2:
+    additionalProperties: false
+    properties:
+      from_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      to_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+    required:
+      - from_date
+      - to_date
+    type: object
+  TaxAmount2:
+    additionalProperties: false
+    properties:
+      total_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    type: object
+  TaxRecordDetails2:
+    additionalProperties: false
+    properties:
+      period:
+        $ref: "#/definitions/TaxPeriod2"
+        type: object
+        additionalProperties: false
+      amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    required:
+      - amount
+    type: object
+  RemittanceLocation7:
+    additionalProperties: false
+    properties:
+      remittance_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      remittance_location_details:
+        items:
+          $ref: "#/definitions/RemittanceLocationData1"
+        type: array
+    type: object
+  RemittanceLocationData1:
+    additionalProperties: false
+    properties:
+      method:
+        $ref: "#/definitions/RemittanceLocationMethod2Code"
+        type: string
+      electronic_address:
+        $ref: "#/definitions/Max2048Text"
+        type: string
+      postal_address:
+        $ref: "#/definitions/NameAndAddress16"
+        type: object
+        additionalProperties: false
+    required:
+      - method
+    type: object
+  RemittanceLocationMethod2Code:
+    enum:
+      - FAXI
+      - EDIC
+      - URID
+      - EMAL
+      - POST
+      - SMSM
+    type: string
+  RemittanceInformation16:
+    additionalProperties: false
+    properties:
+      unstructured:
+        items:
+          $ref: "#/definitions/Max140Text"
+        type: array
+      structured:
+        items:
+          $ref: "#/definitions/StructuredRemittanceInformation16"
+        type: array
+    type: object
+  StructuredRemittanceInformation16:
+    additionalProperties: false
+    properties:
+      referred_document_information:
+        items:
+          $ref: "#/definitions/ReferredDocumentInformation7"
+        type: array
+      referred_document_amount:
+        $ref: "#/definitions/RemittanceAmount2"
+        type: object
+        additionalProperties: false
+      creditor_reference_information:
+        $ref: "#/definitions/CreditorReferenceInformation2"
+        type: object
+        additionalProperties: false
+      invoicer:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      invoicee:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      tax_remittance:
+        $ref: "#/definitions/TaxInformation7"
+        type: object
+        additionalProperties: false
+      garnishment_remittance:
+        $ref: "#/definitions/Garnishment3"
+        type: object
+        additionalProperties: false
+      additional_remittance_information:
+        maxItems: 3
+        items:
+          $ref: "#/definitions/Max140Text"
+        type: array
+    type: object
+  ReferredDocumentInformation7:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/ReferredDocumentType4"
+        type: object
+        additionalProperties: false
+      number:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      related_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      line_details:
+        items:
+          $ref: "#/definitions/DocumentLineInformation1"
+        type: array
+    type: object
+  ReferredDocumentType4:
+    additionalProperties: false
+    properties:
+      code_or_proprietary:
+        $ref: "#/definitions/ReferredDocumentType3Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - code_or_proprietary
+    type: object
+  ReferredDocumentType3Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/DocumentType6Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  DocumentType6Code:
+    enum:
+      - MSIN
+      - CNFA
+      - DNFA
+      - CINV
+      - CREN
+      - DEBN
+      - HIRI
+      - SBIN
+      - CMCN
+      - SOAC
+      - DISP
+      - PUOR
+      - BOLD
+      - VCHR
+      - AROI
+      - TSUT
+    type: string
+  DocumentLineInformation1:
+    additionalProperties: false
+    properties:
+      identification:
+        minItems: 1
+        items:
+          $ref: "#/definitions/DocumentLineIdentification1"
+        type: array
+      description:
+        $ref: "#/definitions/Max2048Text"
+        type: string
+      amount:
+        $ref: "#/definitions/RemittanceAmount3"
+        type: object
+        additionalProperties: false
+    required:
+      - identification
+    type: object
+  DocumentLineIdentification1:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/DocumentLineType1"
+        type: object
+        additionalProperties: false
+      number:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      related_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+    type: object
+  DocumentLineType1:
+    additionalProperties: false
+    properties:
+      code_or_proprietary:
+        $ref: "#/definitions/DocumentLineType1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - code_or_proprietary
+    type: object
+  DocumentLineType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalDocumentLineType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalDocumentLineType1Code:
+    type: string
+  RemittanceAmount3:
+    additionalProperties: false
+    properties:
+      due_payable_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      discount_applied_amount:
+        items:
+          $ref: "#/definitions/DiscountAmountAndType1"
+        type: array
+      credit_note_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      tax_amount:
+        items:
+          $ref: "#/definitions/TaxAmountAndType1"
+        type: array
+      adjustment_amount_and_reason:
+        items:
+          $ref: "#/definitions/DocumentAdjustment1"
+        type: array
+      remitted_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    type: object
+  DiscountAmountAndType1:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/DiscountAmountType1Choice"
+        type: object
+        additionalProperties: false
+      amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    required:
+      - amount
+    type: object
+  DiscountAmountType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalDiscountAmountType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalDiscountAmountType1Code:
+    type: string
+  TaxAmountAndType1:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/TaxAmountType1Choice"
+        type: object
+        additionalProperties: false
+      amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    required:
+      - amount
+    type: object
+  TaxAmountType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalTaxAmountType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalTaxAmountType1Code:
+    type: string
+  DocumentAdjustment1:
+    additionalProperties: false
+    properties:
+      amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      credit_debit_indicator:
+        $ref: "#/definitions/CreditDebitCode"
+        type: string
+      reason:
+        $ref: "#/definitions/Max4Text"
+        type: string
+      additional_information:
+        $ref: "#/definitions/Max140Text"
+        type: string
+    required:
+      - amount
+    type: object
+  CreditDebitCode:
+    enum:
+      - DBIT
+      - CRDT
+    type: string
+  RemittanceAmount2:
+    additionalProperties: false
+    properties:
+      due_payable_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      discount_applied_amount:
+        items:
+          $ref: "#/definitions/DiscountAmountAndType1"
+        type: array
+      credit_note_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      tax_amount:
+        items:
+          $ref: "#/definitions/TaxAmountAndType1"
+        type: array
+      adjustment_amount_and_reason:
+        items:
+          $ref: "#/definitions/DocumentAdjustment1"
+        type: array
+      remitted_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    type: object
+  CreditorReferenceInformation2:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/CreditorReferenceType2"
+        type: object
+        additionalProperties: false
+      reference:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    type: object
+  CreditorReferenceType2:
+    additionalProperties: false
+    properties:
+      code_or_proprietary:
+        $ref: "#/definitions/CreditorReferenceType1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - code_or_proprietary
+    type: object
+  CreditorReferenceType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/DocumentType3Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  DocumentType3Code:
+    enum:
+      - RADM
+      - RPIN
+      - FXDR
+      - DISP
+      - PUOR
+      - SCOR
+    type: string
+  TaxInformation7:
+    additionalProperties: false
+    properties:
+      creditor:
+        $ref: "#/definitions/TaxParty1"
+        type: object
+        additionalProperties: false
+      debtor:
+        $ref: "#/definitions/TaxParty2"
+        type: object
+        additionalProperties: false
+      ultimate_debtor:
+        $ref: "#/definitions/TaxParty2"
+        type: object
+        additionalProperties: false
+      administration_zone:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      reference_number:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      method:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      total_taxable_base_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      total_tax_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      sequence_number:
+        $ref: "#/definitions/Number"
+        type: string
+      record:
+        items:
+          $ref: "#/definitions/TaxRecord2"
+        type: array
+    type: object
+  Garnishment3:
+    additionalProperties: false
+    properties:
+      type:
+        $ref: "#/definitions/GarnishmentType1"
+        type: object
+        additionalProperties: false
+      garnishee:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      garnishment_administrator:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      reference_number:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      remitted_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+      family_medical_insurance_indicator:
+        $ref: "#/definitions/TrueFalseIndicator"
+        type: string
+      employee_termination_indicator:
+        $ref: "#/definitions/TrueFalseIndicator"
+        type: string
+    required:
+      - type
+    type: object
+  TrueFalseIndicator:
+    type: boolean
+  SupplementaryData1:
+    additionalProperties: false
+    properties:
+      place_and_name:
+        $ref: "#/definitions/Max350Text"
+        type: string
+      envelope:
+        $ref: "#/definitions/SupplementaryDataEnvelope1"
+        type: object
+        additionalProperties: false
+    required:
+      - envelope
+    type: object
+  Max350Text:
+    description: Specifies a character string with a maximum length of 350 characters.
+    minLength: 1
+    maxLength: 350
+    type: string
+  SupplementaryDataEnvelope1:
+    type: object
+  CustomerCreditTransferInitiationV09:
+    additionalProperties: false
+    properties:
+      group_header:
+        $ref: "#/definitions/GroupHeader85"
+        type: object
+        additionalProperties: false
+      payment_information:
+        minItems: 1
+        items:
+          $ref: "#/definitions/PaymentInstruction30"
+        type: array
+      supplementary_data:
+        items:
+          $ref: "#/definitions/SupplementaryData1"
+        type: array
+    required:
+      - group_header
+      - payment_information
+      - supplementary_data
+    type: object
+  GarnishmentType1:
+    additionalProperties: false
+    properties:
+      code_or_proprietary:
+        $ref: "#/definitions/GarnishmentType1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - code_or_proprietary
+    type: object
+  GarnishmentType1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalGarnishmentType1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalGarnishmentType1Code:
+    type: string
+properties:
+  "@xmlns":
+    default: urn:iso:std:iso:20022:tech:json:pain.001.001.09
+  CustomerCreditTransferInitiationV09:
+    $ref: "#/definitions/CustomerCreditTransferInitiationV09"
+type: object

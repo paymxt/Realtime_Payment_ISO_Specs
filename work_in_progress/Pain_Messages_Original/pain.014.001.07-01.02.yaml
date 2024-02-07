@@ -1,0 +1,622 @@
+$schema: "http://json-schema.org/draft-04/schema#"
+description: This is the ISO/TS 23029:2019 json schema for the message definition pain.014.001.07-CreditorPaymentActivationRequestStatusReportV07.
+additionalProperties: false
+definitions:
+  GroupHeader87:
+    additionalProperties: false
+    properties:
+      message_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      creation_date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+      initiating_party:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+      debtor_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      creditor_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+    required:
+      - message_identification
+      - creation_date_time
+      - initiating_party
+    type: object
+  Max35Text:
+    description: Specifies a character string with a maximum length of 35 characters.
+    minLength: 1
+    maxLength: 35
+    type: string
+  ISODateTime:
+    type: string
+  PartyIdentification135:
+    additionalProperties: false
+    properties:
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      postal_address:
+        $ref: "#/definitions/PostalAddress24"
+        type: object
+        additionalProperties: false
+      identification:
+        $ref: "#/definitions/Party38Choice"
+        type: object
+        additionalProperties: false
+      country_of_residence:
+        $ref: "#/definitions/CountryCode"
+        type: string
+      contact_details:
+        $ref: "#/definitions/Contact4"
+        type: object
+        additionalProperties: false
+    type: object
+  Max140Text:
+    description: Specifies a character string with a maximum length of 140 characters.
+    minLength: 1
+    maxLength: 140
+    type: string
+  PostalAddress24:
+    additionalProperties: false
+    properties:
+      address_type:
+        $ref: "#/definitions/AddressType3Choice"
+        type: object
+        additionalProperties: false
+      department:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      sub_department:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      street_name:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      building_number:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      building_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      floor:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      post_box:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      room:
+        $ref: "#/definitions/Max70Text"
+        type: string
+      post_code:
+        $ref: "#/definitions/Max16Text"
+        type: string
+      town_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      town_location_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      district_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country_sub_division:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country:
+        $ref: "#/definitions/CountryCode"
+        type: string
+      address_line:
+        maxItems: 7
+        items:
+          $ref: "#/definitions/Max70Text"
+        type: array
+    type: object
+  AddressType3Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/AddressType2Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/GenericIdentification30"
+        type: object
+      additionalProperties: false
+    additionalProperties: false
+    type: object
+  AddressType2Code:
+    enum:
+      - HOME
+      - BIZZ
+      - ADDR
+      - PBOX
+      - MLTO
+      - DLVY
+    type: string
+  GenericIdentification30:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Exact4AlphaNumericText"
+        type: string
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+      - issuer
+    type: object
+  Exact4AlphaNumericText:
+    description: Specifies an alphanumeric string with a length of 4 characters.
+    pattern: "^[a-zA-Z0-9]{4}$"
+    type: string
+  Max70Text:
+    description: Specifies a character string with a maximum length of 70characters.
+    minLength: 1
+    maxLength: 70
+    type: string
+  Max16Text:
+    description: Specifies a character string with a maximum length of 16 characters.
+    minLength: 1
+    maxLength: 16
+    type: string
+  CountryCode:
+    pattern: ^[A-Z]{2,2}$
+    type: string
+  Party38Choice:
+    properties:
+      organisation_identification:
+        $ref: "#/definitions/OrganisationIdentification29"
+        type: object
+        additionalProperties: false
+      private_identification:
+        $ref: "#/definitions/PersonIdentification13"
+        type: object
+        additionalProperties: false
+    additionalProperties: false
+    type: object
+  OrganisationIdentification29:
+    additionalProperties: false
+    properties:
+      LEI:
+        $ref: "#/definitions/LEIIdentifier"
+        type: string
+      other:
+        items:
+          $ref: "#/definitions/GenericOrganisationIdentification1"
+        type: array
+    type: object
+  BranchAndFinancialInstitutionIdentification6:
+    additionalProperties: false
+    properties:
+      financial_institution_identification:
+        $ref: "#/definitions/FinancialInstitutionIdentification18"
+        type: object
+        additionalProperties: false
+    required:
+      - financial_institution_identification
+    type: object
+  FinancialInstitutionIdentification18:
+    additionalProperties: false
+    properties:
+      clearing_system_member_identification:
+        $ref: "#/definitions/ClearingSystemMemberIdentification2"
+        type: object
+        additionalProperties: false
+    type: object
+  ClearingSystemMemberIdentification2:
+    additionalProperties: false
+    properties:
+      member_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - member_identification
+    type: object
+  LEIIdentifier:
+    pattern: ^[A-Z0-9]{18,18}[0-9]{2,2}$
+    type: string
+  GenericOrganisationIdentification1:
+    additionalProperties: false
+    properties:
+      identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      scheme_name:
+        $ref: "#/definitions/OrganisationIdentificationSchemeName1Choice"
+        type: object
+        additionalProperties: false
+      issuer:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    required:
+      - identification
+    type: object
+  OrganisationIdentificationSchemeName1Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalOrganisationIdentification1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalOrganisationIdentification1Code:
+    type: string
+  PersonIdentification13:
+    additionalProperties: false
+    properties:
+      date_and_place_of_birth:
+        $ref: "#/definitions/DateAndPlaceOfBirth1"
+        type: object
+        additionalProperties: false
+    type: object
+  DateAndPlaceOfBirth1:
+    additionalProperties: false
+    properties:
+      birth_date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      province_of_birth:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      city_of_birth:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      country_of_birth:
+        $ref: "#/definitions/CountryCode"
+        type: string
+    required:
+      - birth_date
+      - city_of_birth
+      - country_of_birth
+    type: object
+  ISODate:
+    type: string
+  Contact4:
+    additionalProperties: false
+    properties:
+      name:
+        $ref: "#/definitions/Max140Text"
+        type: string
+      phone_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      mobile_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      fax_number:
+        $ref: "#/definitions/PhoneNumber"
+        type: string
+      email_address:
+        $ref: "#/definitions/Max2048Text"
+        type: string
+      other:
+        items:
+          $ref: "#/definitions/OtherContact1"
+        type: array
+    type: object
+  PhoneNumber:
+    description: >-
+      The collection of information which identifies a specific phone or FAX
+      number as defined by telecom services.
+
+      It consists of a '+' followed by the country code (from 1 to 3 characters) then a '-' and finally, any combination of numbers, '(', ')', '+' and '-' (up to 30 characters).
+    pattern: ^\+[0-9]{1,3}-[0-9()+\-]{1,30}$
+    type: string
+  Max2048Text:
+    description: Specifies a character string with a maximum length of 2048 characters.
+    minLength: 1
+    maxLength: 2048
+    type: string
+  OtherContact1:
+    additionalProperties: false
+    properties:
+      channel_type:
+        $ref: "#/definitions/Max4Text"
+        type: string
+      identification:
+        $ref: "#/definitions/Max128Text"
+        type: string
+    required:
+      - channel_type
+    type: object
+  Max4Text:
+    description: Specifies a character string with a maximum length of 4 characters.
+    minLength: 1
+    maxLength: 4
+    type: string
+  Max128Text:
+    description: Specifies a character string with a maximum length of 128 characters.
+    minLength: 1
+    maxLength: 128
+    type: string
+  OriginalGroupInformation30:
+    additionalProperties: false
+    properties:
+      original_message_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      original_message_name_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      original_creation_date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+      original_number_of_transactions:
+        $ref: "#/definitions/Max15NumericText"
+        type: string
+      original_control_sum:
+        $ref: "#/definitions/DecimalNumber"
+        type: string
+      group_status:
+        $ref: "#/definitions/ExternalPaymentGroupStatus1Code"
+        type: string
+      status_reason_information:
+        items:
+          $ref: "#/definitions/StatusReasonInformation12"
+        type: array
+      number_of_transactions_per_status:
+        items:
+          $ref: "#/definitions/NumberOfTransactionsPerStatus5"
+        type: array
+    required:
+      - original_message_identification
+      - original_message_name_identification
+    type: object
+  Max15NumericText:
+    description: Specifies a numeric string with a maximum length of 15 digits.
+    pattern: ^[0-9]{1,15}$
+    type: string
+  DecimalNumber:
+    maxLength: 18
+    type: string
+  ExternalPaymentGroupStatus1Code:
+    type: string
+  StatusReasonInformation12:
+    additionalProperties: false
+    properties:
+      reason:
+        $ref: "#/definitions/StatusReason6Choice"
+        type: object
+        additionalProperties: false
+      additional_information:
+        items:
+          $ref: "#/definitions/Max105Text"
+        type: array
+    type: object
+  StatusReason6Choice:
+    oneOf:
+      - required:
+          - code
+      - required:
+          - proprietary
+    properties:
+      code:
+        $ref: "#/definitions/ExternalStatusReason1Code"
+        type: string
+      proprietary:
+        $ref: "#/definitions/Max35Text"
+        type: string
+    additionalProperties: false
+    type: object
+  ExternalStatusReason1Code:
+    type: string
+  Max105Text:
+    description: Specifies a character string with a maximum length of 105 characters.
+    minLength: 1
+    maxLength: 105
+    type: string
+  NumberOfTransactionsPerStatus5:
+    additionalProperties: false
+    properties:
+      detailed_number_of_transactions:
+        $ref: "#/definitions/Max15NumericText"
+        type: string
+      detailed_status:
+        $ref: "#/definitions/ExternalPaymentTransactionStatus1Code"
+        type: string
+      detailed_control_sum:
+        $ref: "#/definitions/DecimalNumber"
+        type: string
+    required:
+      - detailed_number_of_transactions
+      - detailed_status
+    type: object
+  ExternalPaymentTransactionStatus1Code:
+    type: string
+  OriginalPaymentInstruction31:
+    additionalProperties: false
+    properties:
+      original_payment_information_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      transaction_information_and_status:
+        items:
+          $ref: "#/definitions/PaymentTransaction104"
+        type: array
+    required:
+      - original_payment_information_identification
+    type: object
+  PaymentTransaction104:
+    additionalProperties: false
+    properties:
+      original_instruction_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      original_end_to_end_identification:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      transaction_status:
+        $ref: "#/definitions/ExternalPaymentTransactionStatus1Code"
+        type: string
+      status_reason_information:
+        items:
+          $ref: "#/definitions/StatusReasonInformation12"
+        type: array
+      payment_condition_status:
+        items:
+          $ref: "#/definitions/PaymentConditionStatus1"
+        type: array
+      acceptance_date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+      clearing_system_reference:
+        $ref: "#/definitions/Max35Text"
+        type: string
+      original_transaction_reference:
+        $ref: "#/definitions/OriginalTransactionReference29"
+        type: object
+        additionalProperties: false
+    type: object
+  PaymentConditionStatus1:
+    additionalProperties: false
+    properties:
+      accepted_amount:
+        $ref: "#/definitions/ActiveCurrencyAndAmount"
+        type: string
+      guaranteed_payment:
+        $ref: "#/definitions/TrueFalseIndicator"
+        type: string
+      early_payment:
+        $ref: "#/definitions/TrueFalseIndicator"
+        type: string
+    required:
+      - guaranteed_payment
+      - early_payment
+    type: object
+  ActiveOrHistoricCurrencyAndAmount:
+    type: object
+    properties:
+      amount:
+        maxLength: 18
+        type: string
+      ActiveOrHistoricCurrencyCode:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyCode"
+  ActiveOrHistoricCurrencyCode:
+    pattern: ^[A-Z]{3,3}$
+    type: string
+  DateAndDateTime2Choice:
+    oneOf:
+      - required:
+          - date
+      - required:
+          - date_time
+    properties:
+      date:
+        $ref: "#/definitions/ISODate"
+        type: string
+      date_time:
+        $ref: "#/definitions/ISODateTime"
+        type: string
+    additionalProperties: false
+    type: object
+  ActiveCurrencyAndAmount:
+    type: object
+    properties:
+      amount:
+        $ref: "#/definitions/CurrencyAmountType"
+      active_currency_code:
+        $ref: "#/definitions/ActiveCurrencyCode"
+  CurrencyAmountType:
+    type: number
+    #format: decimal  # fractionDigits=5, totalDigits=18, minInclusive=0 - the same as Interac
+    x-precision: 2
+  ActiveCurrencyCode:
+    pattern: ^[A-Z]{3,3}$
+    type: string
+  OriginalTransactionReference29:
+    additionalProperties: false
+    properties:
+      amount:
+        $ref: "#/definitions/AmountType4Choice"
+        type: object
+        additionalProperties: false
+      requested_execution_date:
+        $ref: "#/definitions/DateAndDateTime2Choice"
+        type: object
+        additionalProperties: false
+      creditor_agent:
+        $ref: "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        type: object
+        additionalProperties: false
+      creditor:
+        $ref: "#/definitions/PartyIdentification135"
+        type: object
+        additionalProperties: false
+    type: object
+  AmountType4Choice:
+    properties:
+      instructed_amount:
+        $ref: "#/definitions/ActiveOrHistoricCurrencyAndAmount"
+        type: string
+    additionalProperties: false
+    required:
+      - instructed_amount
+    type: object
+  Max34Text:
+    description: Specifies a character string with a maximum length of 34 characters.
+    minLength: 1
+    maxLength: 34
+    type: string
+  TrueFalseIndicator:
+    type: boolean
+  SupplementaryData1:
+    additionalProperties: false
+    properties:
+      envelope:
+        $ref: "#/definitions/SupplementaryDataEnvelope1"
+        type: object
+        additionalProperties: false
+    required:
+      - envelope
+    type: object
+  SupplementaryDataEnvelope1:
+    type: object
+  CreditorPaymentActivationRequestStatusReportV07:
+    additionalProperties: false
+    properties:
+      group_header:
+        $ref: "#/definitions/GroupHeader87"
+        type: object
+        additionalProperties: false
+      original_group_information_and_status:
+        $ref: "#/definitions/OriginalGroupInformation30"
+        type: object
+        additionalProperties: false
+      original_payment_information_and_status:
+        items:
+          $ref: "#/definitions/OriginalPaymentInstruction31"
+        type: array
+      supplementary_data:
+        items:
+          $ref: "#/definitions/SupplementaryData1"
+        type: array
+    required:
+      - group_header
+      - original_group_information_and_status
+    type: object
+properties:
+  "@xmlns":
+    default: urn:iso:std:iso:20022:tech:json:pain.002.001.11
+  CreditorPaymentActivationRequestStatusReportV07:
+    $ref: "#/definitions/CreditorPaymentActivationRequestStatusReportV07"
+type: object
