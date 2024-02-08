@@ -1,1483 +1,1331 @@
-{
-  "definitions":
-    {
-      "ISODate": { "$ref": "#/definitions/xs:date" },
-      "ISODateTime": { "$ref": "#/definitions/xs:dateTime" },
-      "RequestedIndicator": { "$ref": "#/definitions/xs:boolean" },
-      "YesNoIndicator": { "$ref": "#/definitions/xs:boolean" },
-      "AddressType2Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["ADDR", "PBOX", "HOME", "BIZZ", "MLTO", "DLVY"],
-        },
-      "CashPaymentStatus2Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["PDNG", "FINL"],
-        },
-      "CreditDebitCode":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["CRDT", "DBIT"],
-        },
-      "EntryStatus1Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["BOOK", "PDNG", "FUTR"],
-        },
-      "FinalStatusCode":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["STLD", "RJTD", "CAND", "FNLD"],
-        },
-      "Instruction1Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["PBEN", "TTIL", "TFRO"],
-        },
-      "NamePrefix2Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["DOCT", "MADM", "MISS", "MIST", "MIKS"],
-        },
-      "PaymentInstrument1Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum":
-            [
-              "BDT",
-              "BCT",
-              "CDT",
-              "CCT",
-              "CHK",
-              "BKT",
-              "DCP",
-              "CCP",
-              "RTI",
-              "CAN",
-            ],
-        },
-      "PaymentType3Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum":
-            [
-              "CBS",
-              "BCK",
-              "BAL",
-              "CLS",
-              "CTR",
-              "CBH",
-              "CBP",
-              "DPG",
-              "DPN",
-              "EXP",
-              "TCH",
-              "LMT",
-              "LIQ",
-              "DPP",
-              "DPH",
-              "DPS",
-              "STF",
-              "TRP",
-              "TCS",
-              "LOA",
-              "LOR",
-              "TCP",
-              "OND",
-              "MGL",
-            ],
-        },
-      "PendingStatus4Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum":
-            [
-              "ACPD",
-              "VALD",
-              "MATD",
-              "AUTD",
-              "INVD",
-              "UMAC",
-              "STLE",
-              "STLM",
-              "SSPD",
-              "PCAN",
-              "PSTL",
-              "PFST",
-              "SMLR",
-              "RMLR",
-              "SRBL",
-              "AVLB",
-              "SRML",
-            ],
-        },
-      "PreferredContactMethod1Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["LETT", "MAIL", "PHON", "FAXX", "CELL"],
-        },
-      "Priority5Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["HIGH", "LOWW", "NORM", "URGT"],
-        },
-      "QueryType2Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["ALLL", "CHNG", "MODF", "DELD"],
-        },
-      "ReportIndicator1Code":
-        {
-          "allOf": [{ "$ref": "#/definitions/xs:string" }, {}],
-          "enum": ["STND", "PRPR"],
-        },
-      "ActiveCurrencyCode":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[A-Z]{3,3}" },
-            ],
-        },
-      "ActiveOrHistoricCurrencyCode":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[A-Z]{3,3}" },
-            ],
-        },
-      "AnyBICDec2014Identifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              {
-                "pattern": "[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}",
-              },
-            ],
-        },
-      "BICFIDec2014Identifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              {
-                "pattern": "[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}",
-              },
-            ],
-        },
-      "CountryCode":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[A-Z]{2,2}" },
-            ],
-        },
-      "EntryTypeIdentifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[BEOVW]{1,1}[0-9]{2,2}|DUM" },
-            ],
-        },
-      "Exact4AlphaNumericText":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[a-zA-Z0-9]{4}" },
-            ],
-        },
-      "ExternalAccountIdentification1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "ExternalCashClearingSystem1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 3 },
-            ],
-        },
-      "ExternalClearingSystemIdentification1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 5 },
-            ],
-        },
-      "ExternalEnquiryRequestType1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "ExternalFinancialInstitutionIdentification1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "ExternalOrganisationIdentification1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "ExternalPaymentControlRequestType1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "ExternalPersonIdentification1Code":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "IBAN2007Identifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}" },
-            ],
-        },
-      "ImpliedCurrencyAndAmount":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:decimal" },
-              { "minimum": 0, "exclusiveMinimum": false },
-            ],
-        },
-      "LEIIdentifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[A-Z0-9]{18,18}[0-9]{2,2}" },
-            ],
-        },
-      "Max128Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 128 },
-            ],
-        },
-      "Max140Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 140 },
-            ],
-        },
-      "Max16Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 16 },
-            ],
-        },
-      "Max2048Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 2048 },
-            ],
-        },
-      "Max34Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 34 },
-            ],
-        },
-      "Max350Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 350 },
-            ],
-        },
-      "Max35Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 35 },
-            ],
-        },
-      "Max3NumericText":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[0-9]{1,3}" },
-            ],
-        },
-      "Max4AlphaNumericText":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "[a-zA-Z0-9]{1,4}", "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "Max4Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 4 },
-            ],
-        },
-      "Max70Text":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "minLength": 1, "maxLength": 70 },
-            ],
-        },
-      "PhoneNumber":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              { "pattern": "\\+[0-9]{1,3}-[0-9()+\\-]{1,30}" },
-            ],
-        },
-      "UUIDv4Identifier":
-        {
-          "allOf":
-            [
-              { "$ref": "#/definitions/xs:string" },
-              {
-                "pattern": "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}",
-              },
-            ],
-        },
-      "AccountCashEntryReturnCriteria3":
-        {
-          "type": "object",
-          "properties":
-            {
-              "NtryRefInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "AcctTpInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "NtryAmtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "AcctCcyInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "NtryStsInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "NtryDtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "AcctSvcrInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "AcctOwnrInd": { "$ref": "#/definitions/RequestedIndicator" },
-            },
-        },
-      "AccountIdentification4Choice":
-        {
-          "required": ["IBAN", "Othr"],
-          "type": "object",
-          "properties":
-            {
-              "IBAN": { "$ref": "#/definitions/IBAN2007Identifier" },
-              "Othr": { "$ref": "#/definitions/GenericAccountIdentification1" },
-            },
-        },
-      "AccountIdentificationSearchCriteria2Choice":
-        {
-          "required": ["EQ", "CTTxt", "NCTTxt"],
-          "type": "object",
-          "properties":
-            {
-              "EQ": { "$ref": "#/definitions/AccountIdentification4Choice" },
-              "CTTxt": { "$ref": "#/definitions/Max35Text" },
-              "NCTTxt": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "AccountSchemeName1Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd":
-                { "$ref": "#/definitions/ExternalAccountIdentification1Code" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "ActiveAmountRange3Choice":
-        {
-          "required": ["ImpldCcyAndAmtRg", "CcyAndAmtRg"],
-          "type": "object",
-          "properties":
-            {
-              "ImpldCcyAndAmtRg":
-                { "$ref": "#/definitions/ImpliedCurrencyAndAmountRange1" },
-              "CcyAndAmtRg":
-                { "$ref": "#/definitions/ActiveCurrencyAndAmountRange3" },
-            },
-        },
-      "ActiveCurrencyAndAmountRange3":
-        {
-          "required": ["Amt", "Ccy"],
-          "type": "object",
-          "properties":
-            {
-              "Amt":
-                { "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice" },
-              "CdtDbtInd": { "$ref": "#/definitions/CreditDebitCode" },
-              "Ccy": { "$ref": "#/definitions/ActiveCurrencyCode" },
-            },
-        },
-      "ActiveOrHistoricAmountRange2Choice":
-        {
-          "required": ["ImpldCcyAndAmtRg", "CcyAndAmtRg"],
-          "type": "object",
-          "properties":
-            {
-              "ImpldCcyAndAmtRg":
-                { "$ref": "#/definitions/ImpliedCurrencyAndAmountRange1" },
-              "CcyAndAmtRg":
-                {
-                  "$ref": "#/definitions/ActiveOrHistoricCurrencyAndAmountRange2",
-                },
-            },
-        },
-      "ActiveOrHistoricCurrencyAndAmountRange2":
-        {
-          "required": ["Amt", "Ccy"],
-          "type": "object",
-          "properties":
-            {
-              "Amt":
-                { "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice" },
-              "CdtDbtInd": { "$ref": "#/definitions/CreditDebitCode" },
-              "Ccy": { "$ref": "#/definitions/ActiveOrHistoricCurrencyCode" },
-            },
-        },
-      "AddressType3Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd": { "$ref": "#/definitions/AddressType2Code" },
-              "Prtry": { "$ref": "#/definitions/GenericIdentification30" },
-            },
-        },
-      "AmountRangeBoundary1":
-        {
-          "required": ["BdryAmt", "Incl"],
-          "type": "object",
-          "properties":
-            {
-              "BdryAmt": { "$ref": "#/definitions/ImpliedCurrencyAndAmount" },
-              "Incl": { "$ref": "#/definitions/YesNoIndicator" },
-            },
-        },
-      "BranchAndFinancialInstitutionIdentification6":
-        {
-          "required": ["FinInstnId"],
-          "type": "object",
-          "properties":
-            {
-              "FinInstnId":
-                {
-                  "$ref": "#/definitions/FinancialInstitutionIdentification18",
-                },
-              "BrnchId": { "$ref": "#/definitions/BranchData3" },
-            },
-        },
-      "BranchData3":
-        {
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max35Text" },
-              "LEI": { "$ref": "#/definitions/LEIIdentifier" },
-              "Nm": { "$ref": "#/definitions/Max140Text" },
-              "PstlAdr": { "$ref": "#/definitions/PostalAddress24" },
-            },
-        },
-      "CashAccountEntrySearch7":
-        {
-          "type": "object",
-          "properties":
-            {
-              "AcctId":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/AccountIdentificationSearchCriteria2Choice",
-                    },
-                  "minItems": 0,
-                },
-              "NtryAmt":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/ActiveOrHistoricAmountRange2Choice",
-                    },
-                  "minItems": 0,
-                },
-              "NtryAmtCcy":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/ActiveOrHistoricCurrencyCode" },
-                  "minItems": 0,
-                },
-              "CdtDbtInd": { "$ref": "#/definitions/CreditDebitCode" },
-              "NtrySts":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/EntryStatus1Code" },
-                  "minItems": 0,
-                },
-              "NtryDt":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/DateAndDateTimeSearch3Choice" },
-                  "minItems": 0,
-                },
-              "AcctOwnr": { "$ref": "#/definitions/PartyIdentification135" },
-              "AcctSvcr":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-            },
-        },
-      "ClearingSystemIdentification2Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd":
-                {
-                  "$ref": "#/definitions/ExternalClearingSystemIdentification1Code",
-                },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "ClearingSystemIdentification3Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd": { "$ref": "#/definitions/ExternalCashClearingSystem1Code" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "ClearingSystemMemberIdentification2":
-        {
-          "type": "object",
-          "properties":
-            {
-              "ClrSysId":
-                { "$ref": "#/definitions/ClearingSystemIdentification2Choice" },
-              "MmbId": { "$ref": "#/definitions/Max35Text" },
-            },
-          "required": ["MmbId"],
-        },
-      "Contact4":
-        {
-          "type": "object",
-          "properties":
-            {
-              "NmPrfx": { "$ref": "#/definitions/NamePrefix2Code" },
-              "Nm": { "$ref": "#/definitions/Max140Text" },
-              "PhneNb": { "$ref": "#/definitions/PhoneNumber" },
-              "MobNb": { "$ref": "#/definitions/PhoneNumber" },
-              "FaxNb": { "$ref": "#/definitions/PhoneNumber" },
-              "EmailAdr": { "$ref": "#/definitions/Max2048Text" },
-              "EmailPurp": { "$ref": "#/definitions/Max35Text" },
-              "JobTitl": { "$ref": "#/definitions/Max35Text" },
-              "Rspnsblty": { "$ref": "#/definitions/Max35Text" },
-              "Dept": { "$ref": "#/definitions/Max70Text" },
-              "Othr":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/OtherContact1" },
-                  "minItems": 0,
-                },
-              "PrefrdMtd":
-                { "$ref": "#/definitions/PreferredContactMethod1Code" },
-            },
-        },
-      "DateAndDateTimeSearch3Choice":
-        {
-          "required": ["DtTmSch", "DtSch"],
-          "type": "object",
-          "properties":
-            {
-              "DtTmSch": { "$ref": "#/definitions/DateTimePeriod1Choice" },
-              "DtSch": { "$ref": "#/definitions/DatePeriodSearch1Choice" },
-            },
-        },
-      "DateAndPlaceOfBirth1":
-        {
-          "required": ["BirthDt", "CityOfBirth", "CtryOfBirth"],
-          "type": "object",
-          "properties":
-            {
-              "BirthDt": { "$ref": "#/definitions/ISODate" },
-              "PrvcOfBirth": { "$ref": "#/definitions/Max35Text" },
-              "CityOfBirth": { "$ref": "#/definitions/Max35Text" },
-              "CtryOfBirth": { "$ref": "#/definitions/CountryCode" },
-            },
-        },
-      "DatePeriod2":
-        {
-          "required": ["FrDt", "ToDt"],
-          "type": "object",
-          "properties":
-            {
-              "FrDt": { "$ref": "#/definitions/ISODate" },
-              "ToDt": { "$ref": "#/definitions/ISODate" },
-            },
-        },
-      "DatePeriodSearch1Choice":
-        {
-          "required": ["FrDt", "ToDt", "FrToDt", "EQDt", "NEQDt"],
-          "type": "object",
-          "properties":
-            {
-              "FrDt": { "$ref": "#/definitions/ISODate" },
-              "ToDt": { "$ref": "#/definitions/ISODate" },
-              "FrToDt": { "$ref": "#/definitions/DatePeriod2" },
-              "EQDt": { "$ref": "#/definitions/ISODate" },
-              "NEQDt": { "$ref": "#/definitions/ISODate" },
-            },
-        },
-      "DateTimePeriod1":
-        {
-          "required": ["FrDtTm", "ToDtTm"],
-          "type": "object",
-          "properties":
-            {
-              "FrDtTm": { "$ref": "#/definitions/ISODateTime" },
-              "ToDtTm": { "$ref": "#/definitions/ISODateTime" },
-            },
-        },
-      "DateTimePeriod1Choice":
-        {
-          "required": ["FrDtTm", "ToDtTm", "DtTmRg"],
-          "type": "object",
-          "properties":
-            {
-              "FrDtTm": { "$ref": "#/definitions/ISODateTime" },
-              "ToDtTm": { "$ref": "#/definitions/ISODateTime" },
-              "DtTmRg": { "$ref": "#/definitions/DateTimePeriod1" },
-            },
-        },
-      "Document":
-        {
-          "required": ["GetTx"],
-          "type": "object",
-          "properties":
-            { "GetTx": { "$ref": "#/definitions/GetTransactionV10" } },
-        },
-      "FinancialIdentificationSchemeName1Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd":
-                {
-                  "$ref": "#/definitions/ExternalFinancialInstitutionIdentification1Code",
-                },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "FinancialInstitutionIdentification18":
-        {
-          "type": "object",
-          "properties":
-            {
-              "BICFI": { "$ref": "#/definitions/BICFIDec2014Identifier" },
-              "ClrSysMmbId":
-                { "$ref": "#/definitions/ClearingSystemMemberIdentification2" },
-              "LEI": { "$ref": "#/definitions/LEIIdentifier" },
-              "Nm": { "$ref": "#/definitions/Max140Text" },
-              "PstlAdr": { "$ref": "#/definitions/PostalAddress24" },
-              "Othr":
-                { "$ref": "#/definitions/GenericFinancialIdentification1" },
-            },
-        },
-      "FromToAmountRange1":
-        {
-          "required": ["FrAmt", "ToAmt"],
-          "type": "object",
-          "properties":
-            {
-              "FrAmt": { "$ref": "#/definitions/AmountRangeBoundary1" },
-              "ToAmt": { "$ref": "#/definitions/AmountRangeBoundary1" },
-            },
-        },
-      "GenericAccountIdentification1":
-        {
-          "required": ["Id"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max34Text" },
-              "SchmeNm": { "$ref": "#/definitions/AccountSchemeName1Choice" },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GenericFinancialIdentification1":
-        {
-          "required": ["Id"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max35Text" },
-              "SchmeNm":
-                {
-                  "$ref": "#/definitions/FinancialIdentificationSchemeName1Choice",
-                },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GenericIdentification1":
-        {
-          "required": ["Id"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max35Text" },
-              "SchmeNm": { "$ref": "#/definitions/Max35Text" },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GenericIdentification30":
-        {
-          "required": ["Id", "Issr"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Exact4AlphaNumericText" },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-              "SchmeNm": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GenericOrganisationIdentification1":
-        {
-          "required": ["Id"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max35Text" },
-              "SchmeNm":
-                {
-                  "$ref": "#/definitions/OrganisationIdentificationSchemeName1Choice",
-                },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GenericPersonIdentification1":
-        {
-          "required": ["Id"],
-          "type": "object",
-          "properties":
-            {
-              "Id": { "$ref": "#/definitions/Max35Text" },
-              "SchmeNm":
-                {
-                  "$ref": "#/definitions/PersonIdentificationSchemeName1Choice",
-                },
-              "Issr": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "GetTransactionV10":
-        {
-          "required": ["MsgHdr"],
-          "type": "object",
-          "properties":
-            {
-              "MsgHdr": { "$ref": "#/definitions/MessageHeader9" },
-              "TxQryDef": { "$ref": "#/definitions/TransactionQuery7" },
-              "SplmtryData":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/SupplementaryData1" },
-                  "minItems": 0,
-                },
-            },
-        },
-      "ImpliedCurrencyAmountRange1Choice":
-        {
-          "required": ["FrAmt", "ToAmt", "FrToAmt", "EQAmt", "NEQAmt"],
-          "type": "object",
-          "properties":
-            {
-              "FrAmt": { "$ref": "#/definitions/AmountRangeBoundary1" },
-              "ToAmt": { "$ref": "#/definitions/AmountRangeBoundary1" },
-              "FrToAmt": { "$ref": "#/definitions/FromToAmountRange1" },
-              "EQAmt": { "$ref": "#/definitions/ImpliedCurrencyAndAmount" },
-              "NEQAmt": { "$ref": "#/definitions/ImpliedCurrencyAndAmount" },
-            },
-        },
-      "ImpliedCurrencyAndAmountRange1":
-        {
-          "required": ["Amt"],
-          "type": "object",
-          "properties":
-            {
-              "Amt":
-                { "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice" },
-              "CdtDbtInd": { "$ref": "#/definitions/CreditDebitCode" },
-            },
-        },
-      "InstructionStatusReturnCriteria1":
-        {
-          "required": ["PmtInstrStsInd"],
-          "type": "object",
-          "properties":
-            {
-              "PmtInstrStsInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PmtInstrStsDtTmInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-              "PmtInstrStsRsnInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-            },
-        },
-      "InstructionStatusSearch5":
-        {
-          "type": "object",
-          "properties":
-            {
-              "PmtInstrSts":
-                { "$ref": "#/definitions/PaymentStatusCodeSearch2Choice" },
-              "PmtInstrStsDtTm":
-                { "$ref": "#/definitions/DateTimePeriod1Choice" },
-              "PrtryStsRsn": { "$ref": "#/definitions/Max4AlphaNumericText" },
-            },
-        },
-      "LongPaymentIdentification3":
-        {
-          "type": "object",
-          "properties":
-            {
-              "TxId": { "$ref": "#/definitions/Max35Text" },
-              "UETR": { "$ref": "#/definitions/UUIDv4Identifier" },
-              "IntrBkSttlmAmt":
-                { "$ref": "#/definitions/ImpliedCurrencyAndAmount" },
-              "IntrBkSttlmDt": { "$ref": "#/definitions/ISODate" },
-              "PmtMtd": { "$ref": "#/definitions/PaymentOrigin1Choice" },
-              "InstgAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "InstdAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "NtryTp": { "$ref": "#/definitions/EntryTypeIdentifier" },
-              "EndToEndId": { "$ref": "#/definitions/Max35Text" },
-            },
-          "required":
-            ["IntrBkSttlmAmt", "IntrBkSttlmDt", "InstgAgt", "InstdAgt"],
-        },
-      "MessageHeader9":
-        {
-          "required": ["MsgId"],
-          "type": "object",
-          "properties":
-            {
-              "MsgId": { "$ref": "#/definitions/Max35Text" },
-              "CreDtTm": { "$ref": "#/definitions/ISODateTime" },
-              "ReqTp": { "$ref": "#/definitions/RequestType4Choice" },
-            },
-        },
-      "OrganisationIdentification29":
-        {
-          "type": "object",
-          "properties":
-            {
-              "AnyBIC": { "$ref": "#/definitions/AnyBICDec2014Identifier" },
-              "LEI": { "$ref": "#/definitions/LEIIdentifier" },
-              "Othr":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/GenericOrganisationIdentification1",
-                    },
-                  "minItems": 0,
-                },
-            },
-        },
-      "OrganisationIdentificationSchemeName1Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd":
-                {
-                  "$ref": "#/definitions/ExternalOrganisationIdentification1Code",
-                },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "OtherContact1":
-        {
-          "required": ["ChanlTp"],
-          "type": "object",
-          "properties":
-            {
-              "ChanlTp": { "$ref": "#/definitions/Max4Text" },
-              "Id": { "$ref": "#/definitions/Max128Text" },
-            },
-        },
-      "Party38Choice":
-        {
-          "required": ["OrgId", "PrvtId"],
-          "type": "object",
-          "properties":
-            {
-              "OrgId": { "$ref": "#/definitions/OrganisationIdentification29" },
-              "PrvtId": { "$ref": "#/definitions/PersonIdentification13" },
-            },
-        },
-      "Party40Choice":
-        {
-          "required": ["Pty", "Agt"],
-          "type": "object",
-          "properties":
-            {
-              "Pty": { "$ref": "#/definitions/PartyIdentification135" },
-              "Agt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-            },
-        },
-      "PartyIdentification135":
-        {
-          "type": "object",
-          "properties":
-            {
-              "Nm": { "$ref": "#/definitions/Max140Text" },
-              "PstlAdr": { "$ref": "#/definitions/PostalAddress24" },
-              "Id": { "$ref": "#/definitions/Party38Choice" },
-              "CtryOfRes": { "$ref": "#/definitions/CountryCode" },
-              "CtctDtls": { "$ref": "#/definitions/Contact4" },
-            },
-        },
-      "PaymentIdentification7Choice":
-        {
-          "required":
-            ["TxId", "UETR", "QId", "LngBizId", "ShrtBizId", "PrtryId"],
-          "type": "object",
-          "properties":
-            {
-              "TxId": { "$ref": "#/definitions/Max35Text" },
-              "UETR": { "$ref": "#/definitions/UUIDv4Identifier" },
-              "QId":
-                { "$ref": "#/definitions/QueueTransactionIdentification1" },
-              "LngBizId":
-                { "$ref": "#/definitions/LongPaymentIdentification3" },
-              "ShrtBizId":
-                { "$ref": "#/definitions/ShortPaymentIdentification3" },
-              "PrtryId": { "$ref": "#/definitions/Max70Text" },
-            },
-        },
-      "PaymentOrigin1Choice":
-        {
-          "required": ["FINMT", "XMLMsgNm", "Prtry", "Instrm"],
-          "type": "object",
-          "properties":
-            {
-              "FINMT": { "$ref": "#/definitions/Max3NumericText" },
-              "XMLMsgNm": { "$ref": "#/definitions/Max35Text" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-              "Instrm": { "$ref": "#/definitions/PaymentInstrument1Code" },
-            },
-        },
-      "PaymentReturnCriteria4":
-        {
-          "type": "object",
-          "properties":
-            {
-              "MsgIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "ReqdExctnDtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "InstrInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "InstrStsRtrCrit":
-                { "$ref": "#/definitions/InstructionStatusReturnCriteria1" },
-              "InstdAmtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "CdtDbtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "IntrBkSttlmAmtInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-              "PrtyInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PrcgVldtyTmInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PurpInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "InstrCpyInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PmtMTInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PmtTpInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "TxIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "IntrBkSttlmDtInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-              "EndToEndIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "PmtMtdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "DbtrInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "DbtrAgtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "InstgRmbrsmntAgtInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-              "InstdRmbrsmntAgtInd":
-                { "$ref": "#/definitions/RequestedIndicator" },
-              "IntrmyInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "CdtrAgtInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "CdtrInd": { "$ref": "#/definitions/RequestedIndicator" },
-            },
-        },
-      "PaymentSearch9":
-        {
-          "type": "object",
-          "properties":
-            {
-              "MsgId":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Max35Text" },
-                  "minItems": 0,
-                },
-              "ReqdExctnDt":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/DateAndDateTimeSearch3Choice" },
-                  "minItems": 0,
-                },
-              "PmtId":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/PaymentIdentification7Choice" },
-                  "minItems": 0,
-                },
-              "Sts":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/InstructionStatusSearch5" },
-                  "minItems": 0,
-                },
-              "InstdAmt":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/ActiveOrHistoricAmountRange2Choice",
-                    },
-                  "minItems": 0,
-                },
-              "InstdAmtCcy":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/ActiveOrHistoricCurrencyCode" },
-                  "minItems": 0,
-                },
-              "CdtDbtInd": { "$ref": "#/definitions/CreditDebitCode" },
-              "IntrBkSttlmAmt":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/ActiveAmountRange3Choice" },
-                  "minItems": 0,
-                },
-              "IntrBkSttlmAmtCcy":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/ActiveCurrencyCode" },
-                  "minItems": 0,
-                },
-              "PmtMtd":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/PaymentOrigin1Choice" },
-                  "minItems": 0,
-                },
-              "PmtTp":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/PaymentType4Choice" },
-                  "minItems": 0,
-                },
-              "Prty":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Priority1Choice" },
-                  "minItems": 0,
-                },
-              "PrcgVldtyTm":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/DateTimePeriod1Choice" },
-                  "minItems": 0,
-                },
-              "Instr":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Instruction1Code" },
-                  "minItems": 0,
-                },
-              "TxId":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Max35Text" },
-                  "minItems": 0,
-                },
-              "UETR":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/UUIDv4Identifier" },
-                  "minItems": 0,
-                },
-              "IntrBkSttlmDt":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/ISODate" },
-                  "minItems": 0,
-                },
-              "EndToEndId":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Max35Text" },
-                  "minItems": 0,
-                },
-              "Pties": { "$ref": "#/definitions/PaymentTransactionParty3" },
-            },
-        },
-      "PaymentStatusCodeSearch2Choice":
-        {
-          "required": ["PdgSts", "FnlSts", "PdgAndFnlSts"],
-          "type": "object",
-          "properties":
-            {
-              "PdgSts": { "$ref": "#/definitions/PendingStatus4Code" },
-              "FnlSts": { "$ref": "#/definitions/FinalStatusCode" },
-              "PdgAndFnlSts":
-                { "$ref": "#/definitions/CashPaymentStatus2Code" },
-            },
-        },
-      "PaymentTransactionParty3":
-        {
-          "type": "object",
-          "properties":
-            {
-              "InstgAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "InstdAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "UltmtDbtr": { "$ref": "#/definitions/Party40Choice" },
-              "Dbtr": { "$ref": "#/definitions/Party40Choice" },
-              "DbtrAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "InstgRmbrsmntAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "InstdRmbrsmntAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "IntrmyAgt1":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "IntrmyAgt2":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "IntrmyAgt3":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "CdtrAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-              "Cdtr": { "$ref": "#/definitions/Party40Choice" },
-              "UltmtCdtr": { "$ref": "#/definitions/Party40Choice" },
-            },
-        },
-      "PaymentType4Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd": { "$ref": "#/definitions/PaymentType3Code" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "PersonIdentification13":
-        {
-          "type": "object",
-          "properties":
-            {
-              "DtAndPlcOfBirth":
-                { "$ref": "#/definitions/DateAndPlaceOfBirth1" },
-              "Othr":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/GenericPersonIdentification1" },
-                  "minItems": 0,
-                },
-            },
-        },
-      "PersonIdentificationSchemeName1Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd":
-                { "$ref": "#/definitions/ExternalPersonIdentification1Code" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "PostalAddress24":
-        {
-          "type": "object",
-          "properties":
-            {
-              "AdrTp": { "$ref": "#/definitions/AddressType3Choice" },
-              "Dept": { "$ref": "#/definitions/Max70Text" },
-              "SubDept": { "$ref": "#/definitions/Max70Text" },
-              "StrtNm": { "$ref": "#/definitions/Max70Text" },
-              "BldgNb": { "$ref": "#/definitions/Max16Text" },
-              "BldgNm": { "$ref": "#/definitions/Max35Text" },
-              "Flr": { "$ref": "#/definitions/Max70Text" },
-              "PstBx": { "$ref": "#/definitions/Max16Text" },
-              "Room": { "$ref": "#/definitions/Max70Text" },
-              "PstCd": { "$ref": "#/definitions/Max16Text" },
-              "TwnNm": { "$ref": "#/definitions/Max35Text" },
-              "TwnLctnNm": { "$ref": "#/definitions/Max35Text" },
-              "DstrctNm": { "$ref": "#/definitions/Max35Text" },
-              "CtrySubDvsn": { "$ref": "#/definitions/Max35Text" },
-              "Ctry": { "$ref": "#/definitions/CountryCode" },
-              "AdrLine":
-                {
-                  "maxItems": 7,
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/Max70Text" },
-                  "minItems": 0,
-                },
-            },
-        },
-      "Priority1Choice":
-        {
-          "required": ["Cd", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "Cd": { "$ref": "#/definitions/Priority5Code" },
-              "Prtry": { "$ref": "#/definitions/Max35Text" },
-            },
-        },
-      "QueueTransactionIdentification1":
-        {
-          "required": ["QId", "PosInQ"],
-          "type": "object",
-          "properties":
-            {
-              "QId": { "$ref": "#/definitions/Max16Text" },
-              "PosInQ": { "$ref": "#/definitions/Max16Text" },
-            },
-        },
-      "RequestType4Choice":
-        {
-          "required": ["PmtCtrl", "Enqry", "Prtry"],
-          "type": "object",
-          "properties":
-            {
-              "PmtCtrl":
-                {
-                  "$ref": "#/definitions/ExternalPaymentControlRequestType1Code",
-                },
-              "Enqry":
-                { "$ref": "#/definitions/ExternalEnquiryRequestType1Code" },
-              "Prtry": { "$ref": "#/definitions/GenericIdentification1" },
-            },
-        },
-      "ShortPaymentIdentification3":
-        {
-          "type": "object",
-          "properties":
-            {
-              "TxId": { "$ref": "#/definitions/Max35Text" },
-              "UETR": { "$ref": "#/definitions/UUIDv4Identifier" },
-              "IntrBkSttlmDt": { "$ref": "#/definitions/ISODate" },
-              "InstgAgt":
-                {
-                  "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                },
-            },
-          "required": ["IntrBkSttlmDt", "InstgAgt"],
-        },
-      "SupplementaryData1":
-        {
-          "type": "object",
-          "properties":
-            {
-              "PlcAndNm": { "$ref": "#/definitions/Max350Text" },
-              "Envlp": { "$ref": "#/definitions/SupplementaryDataEnvelope1" },
-            },
-          "required": ["Envlp"],
-        },
-      "SystemReturnCriteria2":
-        {
-          "type": "object",
-          "properties":
-            {
-              "SysIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "MmbIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "CtryIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-              "AcctIdInd": { "$ref": "#/definitions/RequestedIndicator" },
-            },
-        },
-      "SystemSearch4":
-        {
-          "type": "object",
-          "properties":
-            {
-              "SysId":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/ClearingSystemIdentification3Choice",
-                    },
-                  "minItems": 0,
-                },
-              "MmbId":
-                {
-                  "type": "array",
-                  "items":
-                    {
-                      "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6",
-                    },
-                  "minItems": 0,
-                },
-              "Ctry": { "$ref": "#/definitions/CountryCode" },
-              "AcctId":
-                { "$ref": "#/definitions/AccountIdentification4Choice" },
-            },
-        },
-      "TransactionCriteria10":
-        {
-          "type": "object",
-          "properties":
-            {
-              "NewQryNm": { "$ref": "#/definitions/Max35Text" },
-              "SchCrit":
-                {
-                  "type": "array",
-                  "items":
-                    { "$ref": "#/definitions/TransactionSearchCriteria10" },
-                  "minItems": 0,
-                },
-              "StmtRpt": { "$ref": "#/definitions/ReportIndicator1Code" },
-              "RtrCrit": { "$ref": "#/definitions/TransactionReturnCriteria5" },
-            },
-        },
-      "TransactionCriteria7Choice":
-        {
-          "required": ["QryNm", "NewCrit"],
-          "type": "object",
-          "properties":
-            {
-              "QryNm": { "$ref": "#/definitions/Max35Text" },
-              "NewCrit": { "$ref": "#/definitions/TransactionCriteria10" },
-            },
-        },
-      "TransactionQuery7":
-        {
-          "type": "object",
-          "properties":
-            {
-              "QryTp": { "$ref": "#/definitions/QueryType2Code" },
-              "TxCrit": { "$ref": "#/definitions/TransactionCriteria7Choice" },
-            },
-        },
-      "TransactionReturnCriteria5":
-        {
-          "type": "object",
-          "properties":
-            {
-              "PmtToRtrCrit": { "$ref": "#/definitions/SystemReturnCriteria2" },
-              "PmtFrRtrCrit": { "$ref": "#/definitions/SystemReturnCriteria2" },
-              "AcctCshNtryRtrCrit":
-                { "$ref": "#/definitions/AccountCashEntryReturnCriteria3" },
-              "PmtRtrCrit": { "$ref": "#/definitions/PaymentReturnCriteria4" },
-            },
-        },
-      "TransactionSearchCriteria10":
-        {
-          "type": "object",
-          "properties":
-            {
-              "PmtTo":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/SystemSearch4" },
-                  "minItems": 0,
-                },
-              "PmtFr":
-                {
-                  "type": "array",
-                  "items": { "$ref": "#/definitions/SystemSearch4" },
-                  "minItems": 0,
-                },
-              "PmtSch": { "$ref": "#/definitions/PaymentSearch9" },
-              "AcctNtrySch":
-                { "$ref": "#/definitions/CashAccountEntrySearch7" },
-            },
-        },
-    },
-  "allOf": [{ "$ref": "#/definitions/Document" }],
-  "$schema": "http://json-schema.org/draft-04/schema#",
-}
+---
+definitions:
+  ISODate:
+    "$ref": "#/definitions/xs:date"
+  ISODateTime:
+    "$ref": "#/definitions/xs:dateTime"
+  RequestedIndicator:
+    "$ref": "#/definitions/xs:boolean"
+  YesNoIndicator:
+    "$ref": "#/definitions/xs:boolean"
+  AddressType2Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - ADDR
+      - PBOX
+      - HOME
+      - BIZZ
+      - MLTO
+      - DLVY
+  CashPaymentStatus2Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - PDNG
+      - FINL
+  CreditDebitCode:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - CRDT
+      - DBIT
+  EntryStatus1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - BOOK
+      - PDNG
+      - FUTR
+  FinalStatusCode:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - STLD
+      - RJTD
+      - CAND
+      - FNLD
+  Instruction1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - PBEN
+      - TTIL
+      - TFRO
+  NamePrefix2Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - DOCT
+      - MADM
+      - MISS
+      - MIST
+      - MIKS
+  PaymentInstrument1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - BDT
+      - BCT
+      - CDT
+      - CCT
+      - CHK
+      - BKT
+      - DCP
+      - CCP
+      - RTI
+      - CAN
+  PaymentType3Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - CBS
+      - BCK
+      - BAL
+      - CLS
+      - CTR
+      - CBH
+      - CBP
+      - DPG
+      - DPN
+      - EXP
+      - TCH
+      - LMT
+      - LIQ
+      - DPP
+      - DPH
+      - DPS
+      - STF
+      - TRP
+      - TCS
+      - LOA
+      - LOR
+      - TCP
+      - OND
+      - MGL
+  PendingStatus4Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - ACPD
+      - VALD
+      - MATD
+      - AUTD
+      - INVD
+      - UMAC
+      - STLE
+      - STLM
+      - SSPD
+      - PCAN
+      - PSTL
+      - PFST
+      - SMLR
+      - RMLR
+      - SRBL
+      - AVLB
+      - SRML
+  PreferredContactMethod1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - LETT
+      - MAIL
+      - PHON
+      - FAXX
+      - CELL
+  Priority5Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - HIGH
+      - LOWW
+      - NORM
+      - URGT
+  QueryType2Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - ALLL
+      - CHNG
+      - MODF
+      - DELD
+  ReportIndicator1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - {}
+    enum:
+      - STND
+      - PRPR
+  ActiveCurrencyCode:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z]{3,3}"
+  ActiveOrHistoricCurrencyCode:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z]{3,3}"
+  AnyBICDec2014Identifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}"
+  BICFIDec2014Identifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z0-9]{4,4}[A-Z]{2,2}[A-Z0-9]{2,2}([A-Z0-9]{3,3}){0,1}"
+  CountryCode:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z]{2,2}"
+  EntryTypeIdentifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[BEOVW]{1,1}[0-9]{2,2}|DUM"
+  Exact4AlphaNumericText:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[a-zA-Z0-9]{4}"
+  ExternalAccountIdentification1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  ExternalCashClearingSystem1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 3
+  ExternalClearingSystemIdentification1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 5
+  ExternalEnquiryRequestType1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  ExternalFinancialInstitutionIdentification1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  ExternalOrganisationIdentification1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  ExternalPaymentControlRequestType1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  ExternalPersonIdentification1Code:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  IBAN2007Identifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z]{2,2}[0-9]{2,2}[a-zA-Z0-9]{1,30}"
+  ImpliedCurrencyAndAmount:
+    allOf:
+      - "$ref": "#/definitions/xs:decimal"
+      - minimum: 0
+        exclusiveMinimum: false
+  LEIIdentifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[A-Z0-9]{18,18}[0-9]{2,2}"
+  Max128Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 128
+  Max140Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 140
+  Max16Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 16
+  Max2048Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 2048
+  Max34Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 34
+  Max350Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 350
+  Max35Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 35
+  Max3NumericText:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[0-9]{1,3}"
+  Max4AlphaNumericText:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[a-zA-Z0-9]{1,4}"
+        minLength: 1
+        maxLength: 4
+  Max4Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 4
+  Max70Text:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - minLength: 1
+        maxLength: 70
+  PhoneNumber:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "\\+[0-9]{1,3}-[0-9()+\\-]{1,30}"
+  UUIDv4Identifier:
+    allOf:
+      - "$ref": "#/definitions/xs:string"
+      - pattern: "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89ab][a-f0-9]{3}-[a-f0-9]{12}"
+  AccountCashEntryReturnCriteria3:
+    type: object
+    properties:
+      NtryRefInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      AcctTpInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      NtryAmtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      AcctCcyInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      NtryStsInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      NtryDtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      AcctSvcrInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      AcctOwnrInd:
+        "$ref": "#/definitions/RequestedIndicator"
+  AccountIdentification4Choice:
+    required:
+      - IBAN
+      - Othr
+    type: object
+    properties:
+      IBAN:
+        "$ref": "#/definitions/IBAN2007Identifier"
+      Othr:
+        "$ref": "#/definitions/GenericAccountIdentification1"
+  AccountIdentificationSearchCriteria2Choice:
+    required:
+      - EQ
+      - CTTxt
+      - NCTTxt
+    type: object
+    properties:
+      EQ:
+        "$ref": "#/definitions/AccountIdentification4Choice"
+      CTTxt:
+        "$ref": "#/definitions/Max35Text"
+      NCTTxt:
+        "$ref": "#/definitions/Max35Text"
+  AccountSchemeName1Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalAccountIdentification1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  ActiveAmountRange3Choice:
+    required:
+      - ImpldCcyAndAmtRg
+      - CcyAndAmtRg
+    type: object
+    properties:
+      ImpldCcyAndAmtRg:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmountRange1"
+      CcyAndAmtRg:
+        "$ref": "#/definitions/ActiveCurrencyAndAmountRange3"
+  ActiveCurrencyAndAmountRange3:
+    required:
+      - Amt
+      - Ccy
+    type: object
+    properties:
+      Amt:
+        "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice"
+      CdtDbtInd:
+        "$ref": "#/definitions/CreditDebitCode"
+      Ccy:
+        "$ref": "#/definitions/ActiveCurrencyCode"
+  ActiveOrHistoricAmountRange2Choice:
+    required:
+      - ImpldCcyAndAmtRg
+      - CcyAndAmtRg
+    type: object
+    properties:
+      ImpldCcyAndAmtRg:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmountRange1"
+      CcyAndAmtRg:
+        "$ref": "#/definitions/ActiveOrHistoricCurrencyAndAmountRange2"
+  ActiveOrHistoricCurrencyAndAmountRange2:
+    required:
+      - Amt
+      - Ccy
+    type: object
+    properties:
+      Amt:
+        "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice"
+      CdtDbtInd:
+        "$ref": "#/definitions/CreditDebitCode"
+      Ccy:
+        "$ref": "#/definitions/ActiveOrHistoricCurrencyCode"
+  AddressType3Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/AddressType2Code"
+      Prtry:
+        "$ref": "#/definitions/GenericIdentification30"
+  AmountRangeBoundary1:
+    required:
+      - BdryAmt
+      - Incl
+    type: object
+    properties:
+      BdryAmt:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmount"
+      Incl:
+        "$ref": "#/definitions/YesNoIndicator"
+  BranchAndFinancialInstitutionIdentification6:
+    required:
+      - FinInstnId
+    type: object
+    properties:
+      FinInstnId:
+        "$ref": "#/definitions/FinancialInstitutionIdentification18"
+      BrnchId:
+        "$ref": "#/definitions/BranchData3"
+  BranchData3:
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max35Text"
+      LEI:
+        "$ref": "#/definitions/LEIIdentifier"
+      Nm:
+        "$ref": "#/definitions/Max140Text"
+      PstlAdr:
+        "$ref": "#/definitions/PostalAddress24"
+  CashAccountEntrySearch7:
+    type: object
+    properties:
+      AcctId:
+        type: array
+        items:
+          "$ref": "#/definitions/AccountIdentificationSearchCriteria2Choice"
+        minItems: 0
+      NtryAmt:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveOrHistoricAmountRange2Choice"
+        minItems: 0
+      NtryAmtCcy:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveOrHistoricCurrencyCode"
+        minItems: 0
+      CdtDbtInd:
+        "$ref": "#/definitions/CreditDebitCode"
+      NtrySts:
+        type: array
+        items:
+          "$ref": "#/definitions/EntryStatus1Code"
+        minItems: 0
+      NtryDt:
+        type: array
+        items:
+          "$ref": "#/definitions/DateAndDateTimeSearch3Choice"
+        minItems: 0
+      AcctOwnr:
+        "$ref": "#/definitions/PartyIdentification135"
+      AcctSvcr:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+  ClearingSystemIdentification2Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalClearingSystemIdentification1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  ClearingSystemIdentification3Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalCashClearingSystem1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  ClearingSystemMemberIdentification2:
+    type: object
+    properties:
+      ClrSysId:
+        "$ref": "#/definitions/ClearingSystemIdentification2Choice"
+      MmbId:
+        "$ref": "#/definitions/Max35Text"
+    required:
+      - MmbId
+  Contact4:
+    type: object
+    properties:
+      NmPrfx:
+        "$ref": "#/definitions/NamePrefix2Code"
+      Nm:
+        "$ref": "#/definitions/Max140Text"
+      PhneNb:
+        "$ref": "#/definitions/PhoneNumber"
+      MobNb:
+        "$ref": "#/definitions/PhoneNumber"
+      FaxNb:
+        "$ref": "#/definitions/PhoneNumber"
+      EmailAdr:
+        "$ref": "#/definitions/Max2048Text"
+      EmailPurp:
+        "$ref": "#/definitions/Max35Text"
+      JobTitl:
+        "$ref": "#/definitions/Max35Text"
+      Rspnsblty:
+        "$ref": "#/definitions/Max35Text"
+      Dept:
+        "$ref": "#/definitions/Max70Text"
+      Othr:
+        type: array
+        items:
+          "$ref": "#/definitions/OtherContact1"
+        minItems: 0
+      PrefrdMtd:
+        "$ref": "#/definitions/PreferredContactMethod1Code"
+  DateAndDateTimeSearch3Choice:
+    required:
+      - DtTmSch
+      - DtSch
+    type: object
+    properties:
+      DtTmSch:
+        "$ref": "#/definitions/DateTimePeriod1Choice"
+      DtSch:
+        "$ref": "#/definitions/DatePeriodSearch1Choice"
+  DateAndPlaceOfBirth1:
+    required:
+      - BirthDt
+      - CityOfBirth
+      - CtryOfBirth
+    type: object
+    properties:
+      BirthDt:
+        "$ref": "#/definitions/ISODate"
+      PrvcOfBirth:
+        "$ref": "#/definitions/Max35Text"
+      CityOfBirth:
+        "$ref": "#/definitions/Max35Text"
+      CtryOfBirth:
+        "$ref": "#/definitions/CountryCode"
+  DatePeriod2:
+    required:
+      - FrDt
+      - ToDt
+    type: object
+    properties:
+      FrDt:
+        "$ref": "#/definitions/ISODate"
+      ToDt:
+        "$ref": "#/definitions/ISODate"
+  DatePeriodSearch1Choice:
+    required:
+      - FrDt
+      - ToDt
+      - FrToDt
+      - EQDt
+      - NEQDt
+    type: object
+    properties:
+      FrDt:
+        "$ref": "#/definitions/ISODate"
+      ToDt:
+        "$ref": "#/definitions/ISODate"
+      FrToDt:
+        "$ref": "#/definitions/DatePeriod2"
+      EQDt:
+        "$ref": "#/definitions/ISODate"
+      NEQDt:
+        "$ref": "#/definitions/ISODate"
+  DateTimePeriod1:
+    required:
+      - FrDtTm
+      - ToDtTm
+    type: object
+    properties:
+      FrDtTm:
+        "$ref": "#/definitions/ISODateTime"
+      ToDtTm:
+        "$ref": "#/definitions/ISODateTime"
+  DateTimePeriod1Choice:
+    required:
+      - FrDtTm
+      - ToDtTm
+      - DtTmRg
+    type: object
+    properties:
+      FrDtTm:
+        "$ref": "#/definitions/ISODateTime"
+      ToDtTm:
+        "$ref": "#/definitions/ISODateTime"
+      DtTmRg:
+        "$ref": "#/definitions/DateTimePeriod1"
+  Document:
+    required:
+      - GetTx
+    type: object
+    properties:
+      GetTx:
+        "$ref": "#/definitions/GetTransactionV10"
+  FinancialIdentificationSchemeName1Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalFinancialInstitutionIdentification1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  FinancialInstitutionIdentification18:
+    type: object
+    properties:
+      BICFI:
+        "$ref": "#/definitions/BICFIDec2014Identifier"
+      ClrSysMmbId:
+        "$ref": "#/definitions/ClearingSystemMemberIdentification2"
+      LEI:
+        "$ref": "#/definitions/LEIIdentifier"
+      Nm:
+        "$ref": "#/definitions/Max140Text"
+      PstlAdr:
+        "$ref": "#/definitions/PostalAddress24"
+      Othr:
+        "$ref": "#/definitions/GenericFinancialIdentification1"
+  FromToAmountRange1:
+    required:
+      - FrAmt
+      - ToAmt
+    type: object
+    properties:
+      FrAmt:
+        "$ref": "#/definitions/AmountRangeBoundary1"
+      ToAmt:
+        "$ref": "#/definitions/AmountRangeBoundary1"
+  GenericAccountIdentification1:
+    required:
+      - Id
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max34Text"
+      SchmeNm:
+        "$ref": "#/definitions/AccountSchemeName1Choice"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+  GenericFinancialIdentification1:
+    required:
+      - Id
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max35Text"
+      SchmeNm:
+        "$ref": "#/definitions/FinancialIdentificationSchemeName1Choice"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+  GenericIdentification1:
+    required:
+      - Id
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max35Text"
+      SchmeNm:
+        "$ref": "#/definitions/Max35Text"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+  GenericIdentification30:
+    required:
+      - Id
+      - Issr
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Exact4AlphaNumericText"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+      SchmeNm:
+        "$ref": "#/definitions/Max35Text"
+  GenericOrganisationIdentification1:
+    required:
+      - Id
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max35Text"
+      SchmeNm:
+        "$ref": "#/definitions/OrganisationIdentificationSchemeName1Choice"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+  GenericPersonIdentification1:
+    required:
+      - Id
+    type: object
+    properties:
+      Id:
+        "$ref": "#/definitions/Max35Text"
+      SchmeNm:
+        "$ref": "#/definitions/PersonIdentificationSchemeName1Choice"
+      Issr:
+        "$ref": "#/definitions/Max35Text"
+  GetTransactionV10:
+    required:
+      - MsgHdr
+    type: object
+    properties:
+      MsgHdr:
+        "$ref": "#/definitions/MessageHeader9"
+      TxQryDef:
+        "$ref": "#/definitions/TransactionQuery7"
+      SplmtryData:
+        type: array
+        items:
+          "$ref": "#/definitions/SupplementaryData1"
+        minItems: 0
+  ImpliedCurrencyAmountRange1Choice:
+    required:
+      - FrAmt
+      - ToAmt
+      - FrToAmt
+      - EQAmt
+      - NEQAmt
+    type: object
+    properties:
+      FrAmt:
+        "$ref": "#/definitions/AmountRangeBoundary1"
+      ToAmt:
+        "$ref": "#/definitions/AmountRangeBoundary1"
+      FrToAmt:
+        "$ref": "#/definitions/FromToAmountRange1"
+      EQAmt:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmount"
+      NEQAmt:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmount"
+  ImpliedCurrencyAndAmountRange1:
+    required:
+      - Amt
+    type: object
+    properties:
+      Amt:
+        "$ref": "#/definitions/ImpliedCurrencyAmountRange1Choice"
+      CdtDbtInd:
+        "$ref": "#/definitions/CreditDebitCode"
+  InstructionStatusReturnCriteria1:
+    required:
+      - PmtInstrStsInd
+    type: object
+    properties:
+      PmtInstrStsInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PmtInstrStsDtTmInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PmtInstrStsRsnInd:
+        "$ref": "#/definitions/RequestedIndicator"
+  InstructionStatusSearch5:
+    type: object
+    properties:
+      PmtInstrSts:
+        "$ref": "#/definitions/PaymentStatusCodeSearch2Choice"
+      PmtInstrStsDtTm:
+        "$ref": "#/definitions/DateTimePeriod1Choice"
+      PrtryStsRsn:
+        "$ref": "#/definitions/Max4AlphaNumericText"
+  LongPaymentIdentification3:
+    type: object
+    properties:
+      TxId:
+        "$ref": "#/definitions/Max35Text"
+      UETR:
+        "$ref": "#/definitions/UUIDv4Identifier"
+      IntrBkSttlmAmt:
+        "$ref": "#/definitions/ImpliedCurrencyAndAmount"
+      IntrBkSttlmDt:
+        "$ref": "#/definitions/ISODate"
+      PmtMtd:
+        "$ref": "#/definitions/PaymentOrigin1Choice"
+      InstgAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      InstdAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      NtryTp:
+        "$ref": "#/definitions/EntryTypeIdentifier"
+      EndToEndId:
+        "$ref": "#/definitions/Max35Text"
+    required:
+      - IntrBkSttlmAmt
+      - IntrBkSttlmDt
+      - InstgAgt
+      - InstdAgt
+  MessageHeader9:
+    required:
+      - MsgId
+    type: object
+    properties:
+      MsgId:
+        "$ref": "#/definitions/Max35Text"
+      CreDtTm:
+        "$ref": "#/definitions/ISODateTime"
+      ReqTp:
+        "$ref": "#/definitions/RequestType4Choice"
+  OrganisationIdentification29:
+    type: object
+    properties:
+      AnyBIC:
+        "$ref": "#/definitions/AnyBICDec2014Identifier"
+      LEI:
+        "$ref": "#/definitions/LEIIdentifier"
+      Othr:
+        type: array
+        items:
+          "$ref": "#/definitions/GenericOrganisationIdentification1"
+        minItems: 0
+  OrganisationIdentificationSchemeName1Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalOrganisationIdentification1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  OtherContact1:
+    required:
+      - ChanlTp
+    type: object
+    properties:
+      ChanlTp:
+        "$ref": "#/definitions/Max4Text"
+      Id:
+        "$ref": "#/definitions/Max128Text"
+  Party38Choice:
+    required:
+      - OrgId
+      - PrvtId
+    type: object
+    properties:
+      OrgId:
+        "$ref": "#/definitions/OrganisationIdentification29"
+      PrvtId:
+        "$ref": "#/definitions/PersonIdentification13"
+  Party40Choice:
+    required:
+      - Pty
+      - Agt
+    type: object
+    properties:
+      Pty:
+        "$ref": "#/definitions/PartyIdentification135"
+      Agt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+  PartyIdentification135:
+    type: object
+    properties:
+      Nm:
+        "$ref": "#/definitions/Max140Text"
+      PstlAdr:
+        "$ref": "#/definitions/PostalAddress24"
+      Id:
+        "$ref": "#/definitions/Party38Choice"
+      CtryOfRes:
+        "$ref": "#/definitions/CountryCode"
+      CtctDtls:
+        "$ref": "#/definitions/Contact4"
+  PaymentIdentification7Choice:
+    required:
+      - TxId
+      - UETR
+      - QId
+      - LngBizId
+      - ShrtBizId
+      - PrtryId
+    type: object
+    properties:
+      TxId:
+        "$ref": "#/definitions/Max35Text"
+      UETR:
+        "$ref": "#/definitions/UUIDv4Identifier"
+      QId:
+        "$ref": "#/definitions/QueueTransactionIdentification1"
+      LngBizId:
+        "$ref": "#/definitions/LongPaymentIdentification3"
+      ShrtBizId:
+        "$ref": "#/definitions/ShortPaymentIdentification3"
+      PrtryId:
+        "$ref": "#/definitions/Max70Text"
+  PaymentOrigin1Choice:
+    required:
+      - FINMT
+      - XMLMsgNm
+      - Prtry
+      - Instrm
+    type: object
+    properties:
+      FINMT:
+        "$ref": "#/definitions/Max3NumericText"
+      XMLMsgNm:
+        "$ref": "#/definitions/Max35Text"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+      Instrm:
+        "$ref": "#/definitions/PaymentInstrument1Code"
+  PaymentReturnCriteria4:
+    type: object
+    properties:
+      MsgIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      ReqdExctnDtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      InstrInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      InstrStsRtrCrit:
+        "$ref": "#/definitions/InstructionStatusReturnCriteria1"
+      InstdAmtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      CdtDbtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      IntrBkSttlmAmtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PrtyInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PrcgVldtyTmInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PurpInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      InstrCpyInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PmtMTInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PmtTpInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      TxIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      IntrBkSttlmDtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      EndToEndIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      PmtMtdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      DbtrInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      DbtrAgtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      InstgRmbrsmntAgtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      InstdRmbrsmntAgtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      IntrmyInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      CdtrAgtInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      CdtrInd:
+        "$ref": "#/definitions/RequestedIndicator"
+  PaymentSearch9:
+    type: object
+    properties:
+      MsgId:
+        type: array
+        items:
+          "$ref": "#/definitions/Max35Text"
+        minItems: 0
+      ReqdExctnDt:
+        type: array
+        items:
+          "$ref": "#/definitions/DateAndDateTimeSearch3Choice"
+        minItems: 0
+      PmtId:
+        type: array
+        items:
+          "$ref": "#/definitions/PaymentIdentification7Choice"
+        minItems: 0
+      Sts:
+        type: array
+        items:
+          "$ref": "#/definitions/InstructionStatusSearch5"
+        minItems: 0
+      InstdAmt:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveOrHistoricAmountRange2Choice"
+        minItems: 0
+      InstdAmtCcy:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveOrHistoricCurrencyCode"
+        minItems: 0
+      CdtDbtInd:
+        "$ref": "#/definitions/CreditDebitCode"
+      IntrBkSttlmAmt:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveAmountRange3Choice"
+        minItems: 0
+      IntrBkSttlmAmtCcy:
+        type: array
+        items:
+          "$ref": "#/definitions/ActiveCurrencyCode"
+        minItems: 0
+      PmtMtd:
+        type: array
+        items:
+          "$ref": "#/definitions/PaymentOrigin1Choice"
+        minItems: 0
+      PmtTp:
+        type: array
+        items:
+          "$ref": "#/definitions/PaymentType4Choice"
+        minItems: 0
+      Prty:
+        type: array
+        items:
+          "$ref": "#/definitions/Priority1Choice"
+        minItems: 0
+      PrcgVldtyTm:
+        type: array
+        items:
+          "$ref": "#/definitions/DateTimePeriod1Choice"
+        minItems: 0
+      Instr:
+        type: array
+        items:
+          "$ref": "#/definitions/Instruction1Code"
+        minItems: 0
+      TxId:
+        type: array
+        items:
+          "$ref": "#/definitions/Max35Text"
+        minItems: 0
+      UETR:
+        type: array
+        items:
+          "$ref": "#/definitions/UUIDv4Identifier"
+        minItems: 0
+      IntrBkSttlmDt:
+        type: array
+        items:
+          "$ref": "#/definitions/ISODate"
+        minItems: 0
+      EndToEndId:
+        type: array
+        items:
+          "$ref": "#/definitions/Max35Text"
+        minItems: 0
+      Pties:
+        "$ref": "#/definitions/PaymentTransactionParty3"
+  PaymentStatusCodeSearch2Choice:
+    required:
+      - PdgSts
+      - FnlSts
+      - PdgAndFnlSts
+    type: object
+    properties:
+      PdgSts:
+        "$ref": "#/definitions/PendingStatus4Code"
+      FnlSts:
+        "$ref": "#/definitions/FinalStatusCode"
+      PdgAndFnlSts:
+        "$ref": "#/definitions/CashPaymentStatus2Code"
+  PaymentTransactionParty3:
+    type: object
+    properties:
+      InstgAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      InstdAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      UltmtDbtr:
+        "$ref": "#/definitions/Party40Choice"
+      Dbtr:
+        "$ref": "#/definitions/Party40Choice"
+      DbtrAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      InstgRmbrsmntAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      InstdRmbrsmntAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      IntrmyAgt1:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      IntrmyAgt2:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      IntrmyAgt3:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      CdtrAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+      Cdtr:
+        "$ref": "#/definitions/Party40Choice"
+      UltmtCdtr:
+        "$ref": "#/definitions/Party40Choice"
+  PaymentType4Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/PaymentType3Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  PersonIdentification13:
+    type: object
+    properties:
+      DtAndPlcOfBirth:
+        "$ref": "#/definitions/DateAndPlaceOfBirth1"
+      Othr:
+        type: array
+        items:
+          "$ref": "#/definitions/GenericPersonIdentification1"
+        minItems: 0
+  PersonIdentificationSchemeName1Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/ExternalPersonIdentification1Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  PostalAddress24:
+    type: object
+    properties:
+      AdrTp:
+        "$ref": "#/definitions/AddressType3Choice"
+      Dept:
+        "$ref": "#/definitions/Max70Text"
+      SubDept:
+        "$ref": "#/definitions/Max70Text"
+      StrtNm:
+        "$ref": "#/definitions/Max70Text"
+      BldgNb:
+        "$ref": "#/definitions/Max16Text"
+      BldgNm:
+        "$ref": "#/definitions/Max35Text"
+      Flr:
+        "$ref": "#/definitions/Max70Text"
+      PstBx:
+        "$ref": "#/definitions/Max16Text"
+      Room:
+        "$ref": "#/definitions/Max70Text"
+      PstCd:
+        "$ref": "#/definitions/Max16Text"
+      TwnNm:
+        "$ref": "#/definitions/Max35Text"
+      TwnLctnNm:
+        "$ref": "#/definitions/Max35Text"
+      DstrctNm:
+        "$ref": "#/definitions/Max35Text"
+      CtrySubDvsn:
+        "$ref": "#/definitions/Max35Text"
+      Ctry:
+        "$ref": "#/definitions/CountryCode"
+      AdrLine:
+        maxItems: 7
+        type: array
+        items:
+          "$ref": "#/definitions/Max70Text"
+        minItems: 0
+  Priority1Choice:
+    required:
+      - Cd
+      - Prtry
+    type: object
+    properties:
+      Cd:
+        "$ref": "#/definitions/Priority5Code"
+      Prtry:
+        "$ref": "#/definitions/Max35Text"
+  QueueTransactionIdentification1:
+    required:
+      - QId
+      - PosInQ
+    type: object
+    properties:
+      QId:
+        "$ref": "#/definitions/Max16Text"
+      PosInQ:
+        "$ref": "#/definitions/Max16Text"
+  RequestType4Choice:
+    required:
+      - PmtCtrl
+      - Enqry
+      - Prtry
+    type: object
+    properties:
+      PmtCtrl:
+        "$ref": "#/definitions/ExternalPaymentControlRequestType1Code"
+      Enqry:
+        "$ref": "#/definitions/ExternalEnquiryRequestType1Code"
+      Prtry:
+        "$ref": "#/definitions/GenericIdentification1"
+  ShortPaymentIdentification3:
+    type: object
+    properties:
+      TxId:
+        "$ref": "#/definitions/Max35Text"
+      UETR:
+        "$ref": "#/definitions/UUIDv4Identifier"
+      IntrBkSttlmDt:
+        "$ref": "#/definitions/ISODate"
+      InstgAgt:
+        "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+    required:
+      - IntrBkSttlmDt
+      - InstgAgt
+  SupplementaryData1:
+    type: object
+    properties:
+      PlcAndNm:
+        "$ref": "#/definitions/Max350Text"
+      Envlp:
+        "$ref": "#/definitions/SupplementaryDataEnvelope1"
+    required:
+      - Envlp
+  SystemReturnCriteria2:
+    type: object
+    properties:
+      SysIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      MmbIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      CtryIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+      AcctIdInd:
+        "$ref": "#/definitions/RequestedIndicator"
+  SystemSearch4:
+    type: object
+    properties:
+      SysId:
+        type: array
+        items:
+          "$ref": "#/definitions/ClearingSystemIdentification3Choice"
+        minItems: 0
+      MmbId:
+        type: array
+        items:
+          "$ref": "#/definitions/BranchAndFinancialInstitutionIdentification6"
+        minItems: 0
+      Ctry:
+        "$ref": "#/definitions/CountryCode"
+      AcctId:
+        "$ref": "#/definitions/AccountIdentification4Choice"
+  TransactionCriteria10:
+    type: object
+    properties:
+      NewQryNm:
+        "$ref": "#/definitions/Max35Text"
+      SchCrit:
+        type: array
+        items:
+          "$ref": "#/definitions/TransactionSearchCriteria10"
+        minItems: 0
+      StmtRpt:
+        "$ref": "#/definitions/ReportIndicator1Code"
+      RtrCrit:
+        "$ref": "#/definitions/TransactionReturnCriteria5"
+  TransactionCriteria7Choice:
+    required:
+      - QryNm
+      - NewCrit
+    type: object
+    properties:
+      QryNm:
+        "$ref": "#/definitions/Max35Text"
+      NewCrit:
+        "$ref": "#/definitions/TransactionCriteria10"
+  TransactionQuery7:
+    type: object
+    properties:
+      QryTp:
+        "$ref": "#/definitions/QueryType2Code"
+      TxCrit:
+        "$ref": "#/definitions/TransactionCriteria7Choice"
+  TransactionReturnCriteria5:
+    type: object
+    properties:
+      PmtToRtrCrit:
+        "$ref": "#/definitions/SystemReturnCriteria2"
+      PmtFrRtrCrit:
+        "$ref": "#/definitions/SystemReturnCriteria2"
+      AcctCshNtryRtrCrit:
+        "$ref": "#/definitions/AccountCashEntryReturnCriteria3"
+      PmtRtrCrit:
+        "$ref": "#/definitions/PaymentReturnCriteria4"
+  TransactionSearchCriteria10:
+    type: object
+    properties:
+      PmtTo:
+        type: array
+        items:
+          "$ref": "#/definitions/SystemSearch4"
+        minItems: 0
+      PmtFr:
+        type: array
+        items:
+          "$ref": "#/definitions/SystemSearch4"
+        minItems: 0
+      PmtSch:
+        "$ref": "#/definitions/PaymentSearch9"
+      AcctNtrySch:
+        "$ref": "#/definitions/CashAccountEntrySearch7"
+allOf:
+  - "$ref": "#/definitions/Document"
+"$schema": http://json-schema.org/draft-04/schema#
