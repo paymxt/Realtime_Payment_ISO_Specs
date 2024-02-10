@@ -1329,3 +1329,6 @@ definitions:
 allOf:
   - "$ref": "#/definitions/Document"
 "$schema": http://json-schema.org/draft-04/schema#
+
+test:
+  - "Commit"
