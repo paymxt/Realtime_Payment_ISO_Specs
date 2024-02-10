@@ -1332,3 +1332,6 @@ allOf:
 
 test:
   - "Commit"
+
+test_two:
+  - "Commit with Jira"
